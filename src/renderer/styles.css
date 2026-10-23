@@ -1,0 +1,231 @@
+:root {
+  --text: #fff;
+  --glow: rgba(255, 255, 255, 0.8);
+  --accent: #fff;
+  --accent2: #fff;
+  --beat: 0;
+  --energy: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  user-select: none;
+}
+
+body.idle {
+  cursor: none;
+}
+
+#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+#lyrics {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  perspective: 900px;
+}
+
+.line {
+  grid-area: 1 / 1;
+  max-width: 86vw;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--text);
+  --ab: 0;
+  /* Glow breathes with the beat; --ab adds a red/cyan split during glitches */
+  text-shadow:
+    0 0 calc(10px + var(--beat) * 34px) var(--glow),
+    0 0 calc(40px + var(--energy) * 50px) var(--glow),
+    calc(var(--ab) * 6px) 0 rgba(255, 0, 70, 0.85),
+    calc(var(--ab) * -6px) 0 rgba(0, 230, 255, 0.85);
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.line.leaving {
+  pointer-events: none;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+  transition:
+    opacity 0.25s ease,
+    color 0.3s ease;
+  transform-origin: 50% 70%;
+}
+
+.char {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform, opacity;
+}
+
+/* Karaoke states */
+.word.upcoming {
+  opacity: 0.42;
+}
+.word.active {
+  opacity: 1;
+}
+.word.sung {
+  opacity: 0.92;
+}
+
+/* Keyword effects (motion is GSAP; these add color/light) */
+.word.keyword.active,
+.word.keyword.sung {
+  color: var(--accent);
+}
+.word.fx-burn {
+  color: var(--accent2) !important;
+  text-shadow:
+    0 0 12px var(--accent2),
+    0 -6px 26px var(--accent),
+    0 -14px 50px rgba(255, 120, 0, 0.6);
+  animation: flicker 0.18s steps(2) 10;
+}
+.word.fx-glow {
+  color: #fff !important;
+  text-shadow:
+    0 0 20px var(--glow),
+    0 0 60px var(--glow),
+    0 0 110px var(--accent);
+}
+.word.fx-heartbeat {
+  color: var(--accent) !important;
+}
+.word.fx-drip {
+  color: var(--accent2) !important;
+  filter: blur(0.4px);
+}
+.word.fx-shatter,
+.word.fx-shake {
+  color: var(--accent) !important;
+}
+.word.fx-float {
+  color: var(--accent2) !important;
+}
+
+@keyframes flicker {
+  50% {
+    filter: brightness(1.6);
+  }
+}
+
+.line.card {
+  opacity: 0.95;
+}
+.card-sub {
+  margin-top: 0.4em;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: max(12px, 0.18em);
+  opacity: 0.7;
+  text-shadow: none;
+}
+
+#titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px 0 14px;
+  -webkit-app-region: drag;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
+}
+body:not(.idle) #titlebar {
+  opacity: 1;
+}
+#titlebar .brand {
+  flex: 1;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+#titlebar button {
+  -webkit-app-region: no-drag;
+  background: none;
+  border: 0;
+  color: #fff;
+  width: 34px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+#titlebar button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  opacity: 1;
+}
+
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 6vh;
+  transform: translate(-50%, 10px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+  pointer-events: none;
+}
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#debug {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  margin: 0;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  font: 12px/1.45 ui-monospace, 'Cascadia Code', Consolas, monospace;
+  color: #cfe;
+  pointer-events: none;
+  white-space: pre;
+}
