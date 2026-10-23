@@ -9,9 +9,13 @@
     "start": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
-    "postinstall": "node node_modules/electron/install.js"
+    "postinstall": "node node_modules/electron/install.js",
+    "dist": "electron-vite build && node scripts/dist.mjs"
   },
   "dependencies": {
+    "sentiment": "^5.0.2"
+  },
+  "devDependencies": {
     "@fontsource/anton": "^5.3.0",
     "@fontsource/arima": "^5.3.0",
     "@fontsource/baloo-2": "^5.3.0",
@@ -54,17 +58,80 @@
     "@fontsource/playfair-display": "^5.3.0",
     "@fontsource/rozha-one": "^5.3.0",
     "@fontsource/teko": "^5.3.0",
-    "gsap": "^3.15.0",
-    "sentiment": "^5.0.2",
-    "three": "^0.186.1"
-  },
-  "devDependencies": {
     "@types/node": "^26.6.5",
     "@types/three": "^0.186.0",
     "electron": "^45.0.0",
+    "electron-builder": "^26.15.3",
     "electron-vite": "^6.0.0",
+    "gsap": "^3.15.0",
+    "three": "^0.186.1",
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"
+  },
+  "author": {
+    "name": "Guruganesh",
+    "email": "guruganeshkannan16@gmail.com"
+  },
+  "productName": "Living Lyrics",
+  "build": {
+    "appId": "com.guruganesh.livinglyrics",
+    "productName": "Living Lyrics",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "sidecar",
+        "to": "sidecar",
+        "filter": [
+          "*.ps1"
+        ]
+      }
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "legalTrademarks": "Living Lyrics by Guruganesh",
+      "signtoolOptions": {
+        "publisherName": [
+          "Guruganesh"
+        ],
+        "signingHashAlgorithms": [
+          "sha256"
+        ],
+        "rfc3161TimeStampServer": "http://timestamp.digicert.com"
+      }
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Living Lyrics",
+      "artifactName": "${productName}-${version}-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.exe"
+    },
+    "copyright": "Copyright © 2026 Guruganesh"
   }
 }
