@@ -8,6 +8,8 @@ export class SongClock {
   private playing = false
   /** Without a usable OS timeline we just count time while playing */
   private freeRun = false
+  /** Last raw sample, so repeated heartbeats of the same sample are ignored */
+  private lastSample = { pos: NaN, updatedAt: NaN, wallSeen: 0 }
 
   reset(positionMs: number, playing: boolean, wall = Date.now()): void {
     this.basePos = positionMs
@@ -25,7 +27,10 @@ export class SongClock {
 
   /** Returns true when the update was treated as a seek. */
   sync(positionMs: number, updatedAt: number, isPlaying: boolean, durationMs: number, wall = Date.now()): boolean {
+    const sameSample = positionMs === this.lastSample.pos && updatedAt === this.lastSample.updatedAt
+    if (!sameSample) this.lastSample = { pos: positionMs, updatedAt, wallSeen: wall }
     const expected = this.now(wall)
+
     if (isPlaying !== this.playing) {
       // Freeze or resume exactly where we are
       this.freeRun = durationMs <= 0
@@ -34,7 +39,8 @@ export class SongClock {
       return false
     }
     this.freeRun = durationMs <= 0
-    if (this.freeRun) return false
+    // Nothing new: the OS is just repeating itself, and our own clock is better
+    if (this.freeRun || sameSample) return false
 
     const actual = this.reported(positionMs, updatedAt, isPlaying, wall)
     const error = actual - expected
@@ -42,14 +48,16 @@ export class SongClock {
       this.reset(actual, isPlaying, wall)
       return true
     }
-    if (Math.abs(error) > 40) this.reset(expected + error * 0.35, isPlaying, wall)
+    if (Math.abs(error) > 40) this.reset(expected + error * 0.5, isPlaying, wall)
     return false
   }
 
   private reported(positionMs: number, updatedAt: number, isPlaying: boolean, wall: number): number {
-    // updatedAt in the future or absurdly old means the source doesn't stamp properly
+    if (!isPlaying) return positionMs
     const age = wall - updatedAt
-    const usable = updatedAt > 0 && age >= 0 && age < 60 * 60 * 1000
-    return isPlaying && usable ? positionMs + age : positionMs
+    // A usable OS timestamp says exactly when the position was true
+    if (updatedAt > 0 && age >= 0 && age < 60 * 60 * 1000) return positionMs + age
+    // Otherwise the sample was true when we first saw it
+    return positionMs + (wall - this.lastSample.wallSeen)
   }
 }

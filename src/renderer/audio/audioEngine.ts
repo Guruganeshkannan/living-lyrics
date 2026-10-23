@@ -83,6 +83,23 @@ export class AudioEngine {
   private fluxStats = new Stats(43)
   private lastBeat = 0
   private lastOnset = 0
+  private chromaScratch = new Float32Array(12)
+  /** Demo/QA: synthesize a steady beat instead of listening */
+  private simBpm = 0
+  private simPhase = 0
+
+  simulate(bpm: number): void {
+    this.simBpm = bpm
+  }
+
+  /** Milliseconds until the next beat, predicted from recent beat spacing (Infinity if unknown) */
+  nextBeatIn(bpm: number): number {
+    const s = this.state
+    if (!bpm || !s.beatTimes.length) return Infinity
+    const period = 60000 / bpm
+    const since = performance.now() - s.beatTimes[s.beatTimes.length - 1]
+    return period - (since % period)
+  }
 
   async start(): Promise<void> {
     try {
@@ -113,6 +130,7 @@ export class AudioEngine {
     // Envelopes decay even without audio so pulses fade out cleanly
     s.beat *= Math.exp(-dt * 5.5)
     s.onset *= Math.exp(-dt * 8)
+    if (this.simBpm && (!this.analyser || s.silent)) return this.simulateFrame(dt)
     if (!this.analyser) return s
 
     this.analyser.getFloatTimeDomainData(this.time)
@@ -131,7 +149,8 @@ export class AudioEngine {
       bassFlux = 0,
       wSum = 0,
       fSum = 0
-    const chroma = new Float32Array(12)
+    const chroma = this.chromaScratch
+    chroma.fill(0)
     for (let i = 1; i < this.freq.length; i++) {
       const hz = i * this.binHz
       if (hz > 12000) break
@@ -191,6 +210,35 @@ export class AudioEngine {
       s.onset = 1
     }
     this.fluxStats.push(flux)
+    return s
+  }
+
+  private simulateFrame(dt: number): AudioState {
+    const s = this.state
+    const period = 60 / this.simBpm
+    this.simPhase += dt
+    s.silent = false
+    s.rms = 0.1
+    // A plausible groove: kick every beat, energy swelling over 8 bars
+    const swell = 0.55 + 0.35 * Math.sin((performance.now() / 1000) * (Math.PI / (period * 16)))
+    s.energy += (swell - s.energy) * 0.05
+    s.mid = 0.4 + 0.2 * Math.sin(this.simPhase * 3)
+    s.treble = 0.35 + 0.2 * Math.sin(this.simPhase * 5.3)
+    s.centroid = 0.5
+    s.flux = 0.4
+    if (this.simPhase >= period) {
+      this.simPhase -= period
+      s.beat = 1
+      s.onset = 1
+      s.beatAge = 0
+      s.beatCount++
+      s.beatTimes.push(performance.now())
+      if (s.beatTimes.length > 48) s.beatTimes.shift()
+    }
+    s.bass = 0.3 + 0.7 * s.beat
+    // C major-ish chroma so the key detector has something musical
+    const cmaj = [1, 0.1, 0.5, 0.1, 0.8, 0.5, 0.1, 0.9, 0.1, 0.5, 0.1, 0.4]
+    for (let i = 0; i < 12; i++) s.chroma[i] = cmaj[i] / 5.1
     return s
   }
 }

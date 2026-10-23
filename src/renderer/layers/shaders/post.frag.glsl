@@ -9,6 +9,8 @@ uniform float uGlitch;
 uniform float uGrain;
 uniform float uVignette;
 uniform float uZoom;
+uniform float uScrim;
+uniform float uExposure;
 
 varying vec2 vUv;
 
@@ -37,9 +39,15 @@ void main() {
   col.g = texture2D(tDiffuse, uv).g;
   col.b = texture2D(tDiffuse, uv - dir * ca).b;
 
+  // Dark halo behind the lyrics (the camera keeps the active line centred)
+  vec2 c = (vUv - 0.5) * vec2(uRes.x / uRes.y, 1.0);
+  float halo = exp(-dot(c * vec2(0.8, 2.2), c * vec2(0.8, 2.2)) * 3.0);
+  col *= 1.0 - uScrim * halo;
+
   col *= 1.0 - uVignette * 0.6 * dot(dir, dir) * 2.0;
+  col *= uExposure;
   col += (hash(vUv * uRes + fract(uTime) * 100.0) - 0.5) * uGrain;
-  // Gentle filmic shoulder so bloom never clips harshly
+  // Filmic shoulder so bloom never clips harshly
   col = col / (1.0 + col * 0.25);
 
   gl_FragColor = vec4(col, 1.0);

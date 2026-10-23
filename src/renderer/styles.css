@@ -1,12 +1,3 @@
-:root {
-  --text: #fff;
-  --glow: rgba(255, 255, 255, 0.8);
-  --accent: #fff;
-  --accent2: #fff;
-  --beat: 0;
-  --energy: 0;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -34,123 +25,161 @@ body.idle {
   display: block;
 }
 
-#stage {
+#lyrics,
+.css3d {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  will-change: transform;
 }
 
-#lyrics {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  perspective: 900px;
-}
-
-.line {
-  grid-area: 1 / 1;
-  max-width: 86vw;
-  text-align: center;
-  text-wrap: balance;
-  color: var(--text);
-  --ab: 0;
-  /* Glow breathes with the beat; --ab adds a red/cyan split during glitches */
-  text-shadow:
-    0 0 calc(10px + var(--beat) * 34px) var(--glow),
-    0 0 calc(40px + var(--energy) * 50px) var(--glow),
-    calc(var(--ab) * 6px) 0 rgba(255, 0, 70, 0.85),
-    calc(var(--ab) * -6px) 0 rgba(0, 230, 255, 0.85);
-  transform-style: preserve-3d;
-  will-change: transform, opacity, filter;
-}
-
-.line.leaving {
+/* Off-screen box used to measure and fit lines before they enter 3D space */
+.measure {
+  position: fixed;
+  left: 0;
+  top: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
-.word {
+/* ---------- a lyric line in 3D ---------- */
+
+.line3d {
+  display: grid;
+  width: max-content;
+  text-align: center;
+  text-wrap: balance;
+  transform-style: preserve-3d;
+  padding: 0.25em 0.4em;
+}
+
+.line3d > .layer {
+  grid-area: 1 / 1;
+}
+
+.line3d .word {
   display: inline-block;
   white-space: nowrap;
-  transition:
-    opacity 0.25s ease,
-    color 0.3s ease;
+  transform-style: preserve-3d;
   transform-origin: 50% 70%;
 }
 
-.char {
-  display: inline-block;
-  white-space: pre;
+.line {
+  transform-style: preserve-3d;
   will-change: transform, opacity;
 }
 
-/* Karaoke states */
-.word.upcoming {
-  opacity: 0.42;
+/* Pre-rendered decoration copies: only their opacity/transform change per frame */
+.layer.shade {
+  color: rgba(0, 0, 0, 0.75);
+  filter: blur(calc(var(--fs) * 0.08));
+  opacity: 0;
 }
-.word.active {
+.layer.glow {
+  color: var(--glowc);
+  filter: blur(calc(var(--fs) * 0.2));
+  opacity: 0;
+  will-change: opacity, transform;
+}
+.layer.rgb {
+  opacity: 0;
+  mix-blend-mode: screen;
+  will-change: opacity, transform;
+}
+.layer.rgb-r {
+  color: rgba(255, 30, 70, 0.9);
+}
+.layer.rgb-c {
+  color: rgba(0, 230, 255, 0.9);
+}
+
+/* Accent bar for title-sequence wipes */
+.layer.bar {
+  align-self: stretch;
+  margin: 0.1em -0.15em;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  opacity: 0;
+  will-change: transform;
+}
+
+/* ---------- liquid karaoke sweep, per akshara ---------- */
+
+.ch {
+  display: inline-block;
+  white-space: pre;
+  /* Generous paint box so Indic marks above/below aren't clipped by background-clip */
+  padding: 0.4em 0.06em;
+  margin: -0.4em -0.06em;
+  background-image: linear-gradient(90deg, var(--lit) 0%, var(--lit) 38%, var(--hot) 50%, var(--dim) 62%, var(--dim) 100%);
+  background-size: 280% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition-property: background-position;
+  transition-timing-function: linear;
+  will-change: transform, opacity;
+}
+[dir='rtl'] .ch {
+  background-image: linear-gradient(270deg, var(--lit) 0%, var(--lit) 38%, var(--hot) 50%, var(--dim) 62%, var(--dim) 100%);
+  background-position: 0% 0;
+}
+.ch.lit {
+  background-position: 0% 0;
+}
+[dir='rtl'] .ch.lit {
+  background-position: 100% 0;
+}
+.ch.instant {
+  transition: none;
+}
+
+.word.upcoming {
+  opacity: 0.75;
+}
+.word.next {
+  opacity: 0.9;
+}
+.word.active,
+.word.sung {
   opacity: 1;
 }
-.word.sung {
-  opacity: 0.92;
+
+/* Keyword words glow in the accent colour once sung */
+.word.keyword.active .ch,
+.word.keyword.sung .ch {
+  --lit: var(--accent);
+}
+.word.fx-burn .ch {
+  --lit: var(--accent2);
+  --hot: #fff6c8;
+}
+.word.fx-glow .ch {
+  --lit: #ffffff;
+}
+.word.fx-drip .ch,
+.word.fx-float .ch {
+  --lit: var(--accent2);
 }
 
-/* Keyword effects (motion is GSAP; these add color/light) */
-.word.keyword.active,
-.word.keyword.sung {
-  color: var(--accent);
-}
-.word.fx-burn {
-  color: var(--accent2) !important;
-  text-shadow:
-    0 0 12px var(--accent2),
-    0 -6px 26px var(--accent),
-    0 -14px 50px rgba(255, 120, 0, 0.6);
-  animation: flicker 0.18s steps(2) 10;
-}
-.word.fx-glow {
-  color: #fff !important;
-  text-shadow:
-    0 0 20px var(--glow),
-    0 0 60px var(--glow),
-    0 0 110px var(--accent);
-}
-.word.fx-heartbeat {
-  color: var(--accent) !important;
-}
-.word.fx-drip {
-  color: var(--accent2) !important;
-  filter: blur(0.4px);
-}
-.word.fx-shatter,
-.word.fx-shake {
-  color: var(--accent) !important;
-}
-.word.fx-float {
-  color: var(--accent2) !important;
-}
+/* ---------- title card ---------- */
 
-@keyframes flicker {
-  50% {
-    filter: brightness(1.6);
-  }
-}
-
-.line.card {
-  opacity: 0.95;
+.line3d.card .line {
+  opacity: 0.96;
 }
 .card-sub {
-  margin-top: 0.4em;
+  grid-area: 2 / 1;
+  margin-top: 0.5em;
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.35em;
-  font-size: max(12px, 0.18em);
-  opacity: 0.7;
-  text-shadow: none;
+  font-size: max(13px, 0.17em);
+  color: rgba(255, 255, 255, 0.75);
 }
+
+/* ---------- chrome ---------- */
 
 #titlebar {
   position: fixed;
@@ -166,6 +195,7 @@ body.idle {
   opacity: 0;
   transition: opacity 0.3s;
   background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
+  z-index: 10;
 }
 body:not(.idle) #titlebar {
   opacity: 1;
@@ -193,26 +223,66 @@ body:not(.idle) #titlebar {
   opacity: 1;
 }
 
+#status {
+  position: fixed;
+  left: 50%;
+  bottom: 4vh;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  transition: opacity 0.6s;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 5;
+}
+#status.show {
+  opacity: 1;
+}
+
 #toast {
   position: fixed;
   left: 50%;
-  bottom: 6vh;
-  transform: translate(-50%, 10px);
+  top: 6vh;
+  transform: translate(-50%, -10px);
   padding: 8px 16px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(8px);
   font-size: 13px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   opacity: 0;
   transition:
     opacity 0.25s,
     transform 0.25s;
   pointer-events: none;
+  z-index: 10;
 }
 #toast.show {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+#dropzone {
+  position: fixed;
+  inset: 24px;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 20;
+}
+body.dropping #dropzone {
+  opacity: 1;
 }
 
 #debug {
@@ -221,11 +291,12 @@ body:not(.idle) #titlebar {
   bottom: 12px;
   margin: 0;
   padding: 12px 14px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   font: 12px/1.45 ui-monospace, 'Cascadia Code', Consolas, monospace;
   color: #cfe;
   pointer-events: none;
   white-space: pre;
+  z-index: 30;
 }

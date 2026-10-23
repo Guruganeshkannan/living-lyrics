@@ -56,6 +56,10 @@ export class MoodDirector {
     this.spring.snap(analysis ? { valence: analysis.overall.valence, arousal: analysis.overall.arousal } : { valence: 0, arousal: 0 })
   }
 
+  setOverride(id: MoodId | null): void {
+    this.override = id && MOOD_IDS.includes(id) ? id : null
+  }
+
   cycleOverride(): MoodId | null {
     const i = this.override ? MOOD_IDS.indexOf(this.override) : -1
     this.override = i + 1 < MOOD_IDS.length ? MOOD_IDS[i + 1] : null
