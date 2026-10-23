@@ -1,0 +1,27 @@
+{
+  "lang": "bn",
+  "name": "Bengali",
+  "script": "bengali",
+  "markers": ["ami", "tumi", "amar", "tomar", "amake", "tomake", "ki", "je", "kore", "ache", "achhe", "hoy", "bhalo", "mon", "ei", "oi", "ekhon", "keno", "shudhu", "aaj", "chilo"],
+  "moods": {
+    "romance": ["ভালোবাসা:2", "ভালবাসা:2", "bhalobasha:2", "bhalobasa:2", "প্রেম:2", "prem:2", "মন", "mon", "হৃদয়", "hridoy", "প্রিয়", "priyo", "প্রিয়া", "priya", "সোনা", "sona", "চুমু:2", "chumu:2", "স্বপ্ন", "swapno", "জ্যোৎস্না", "jyotsna", "বধূ", "bodhu", "প্রাণ", "pran", "চোখ", "chokh", "মায়া", "maya"],
+    "calm": ["শান্তি:2", "shanti:2", "বৃষ্টি", "brishti", "নদী", "nodi", "আকাশ", "akash", "মেঘ", "megh", "ঘুম", "ghum", "বাতাস", "batash"],
+    "nostalgic": ["স্মৃতি:2", "smriti:2", "ছেলেবেলা:2", "chhelebela:2", "পুরনো", "purono", "মা", "maa", "বন্ধু", "bondhu", "সেদিন", "shedin", "মনে পড়ে"],
+    "playful": ["মজা", "moja", "হাসি", "hashi", "খেলা", "khela", "দুষ্টু:2", "dushtu:2"],
+    "triumphant": ["জয়:2", "বিজয়:2", "bijoy:2", "বীর", "bir", "সিংহ", "singho", "সাহস:2", "sahos:2", "শক্তি", "shokti"],
+    "hype": ["নাচ:2", "naach:2", "উৎসব:2", "utsob:2", "পার্টি", "party", "ঢাক:2", "dhak:2", "ধামাকা", "dhamaka"],
+    "heartbreak": ["কান্না:2", "kanna:2", "অশ্রু:2", "ashru:2", "বিরহ:2", "biroho:2", "একা:2", "eka:2", "একাকী", "ekaki", "কষ্ট:2", "koshto:2", "দুঃখ:2", "dukkho:2", "বিদায়:2", "biday:2", "ব্যথা:2", "byatha:2", "চোখের জল"],
+    "revenge": ["প্রতিশোধ:2", "protishodh:2", "রাগ:2", "rag:2", "রক্ত:2", "rokto:2", "খুন:2", "khun:2", "শত্রু:2", "shotru:2", "বিশ্বাসঘাতক:2", "আগুন", "agun", "যুদ্ধ", "juddho"],
+    "dark": ["অন্ধকার:2", "ondhokar:2", "মৃত্যু:2", "mrittu:2", "ভূত", "bhoot", "ভয়:2", "bhoy:2", "ছায়া", "chhaya"]
+  },
+  "effects": {
+    "burn": ["আগুন", "agun"],
+    "heartbeat": ["হৃদয়", "hridoy", "মন", "mon"],
+    "drip": ["কান্না", "kanna", "বৃষ্টি", "brishti", "অশ্রু", "ashru"],
+    "shatter": ["ভাঙা", "bhanga"],
+    "glow": ["আলো", "alo", "চাঁদ", "chand", "তারা", "tara"],
+    "shake": ["ঝড়", "jhor"],
+    "float": ["ওড়া", "ura", "ডানা", "dana", "আকাশ", "akash"]
+  },
+  "negators": ["না", "na", "নেই", "nei", "নয়", "noy"]
+}

@@ -12,9 +12,10 @@ const INSTRUMENTAL_GAP_MS = 8000
 
 export function normalizeLine(text: string): string {
   return text
+    .normalize('NFC')
     .toLowerCase()
     .replace(/\(.*?\)/g, ' ') // ad-libs in brackets
-    .replace(/[^a-z0-9\s']/g, ' ')
+    .replace(/[^\p{L}\p{M}\p{N}\s']/gu, ' ')
     .replace(/\s+/g, ' ')
     .trim()
 }

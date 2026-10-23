@@ -1,0 +1,75 @@
+{
+  "lang": "ta",
+  "name": "Tamil",
+  "script": "tamil",
+  "markers": ["naan", "nee", "nan", "ni", "un", "en", "unna", "unnai", "ennai", "enna", "ennoda", "unnoda", "illa", "illai", "da", "di", "po", "vaa", "va", "ennada", "yen", "ithu", "idhu", "athu", "adhu", "intha", "indha", "antha", "andha", "nenjam", "kanne", "penne", "machan", "machi", "nanba", "kadhal", "un", "unakku", "enakku", "ellam", "konjam", "romba", "paaru", "vandhu", "pogum", "irukku"],
+  "moods": {
+    "romance": [
+      "காதல்:2", "kadhal:2", "kaadhal:2", "kathal:2", "kaathal:2", "காதலி", "kadhali", "காதலன்", "kadhalan", "அன்பு:2", "anbu:2", "அன்பே:2", "anbe:2",
+      "உயிரே:2", "uyire:2", "உயிர்", "uyir", "கண்ணே:2", "kanne:2", "கண்மணி:2", "kanmani:2", "கண்ணம்மா:2", "kannamma:2", "செல்லம்", "chellam",
+      "அழகு", "azhagu", "alagu", "அழகே:2", "azhage:2", "அழகி", "azhagi", "முத்தம்:2", "mutham:2", "muththam:2", "நெஞ்சம்", "nenjam",
+      "நெஞ்சு", "nenju", "இதயம்", "idhayam", "ithayam", "மனசு", "manasu", "கனவு", "kanavu", "இதழ்", "idhazh", "ithazh", "மலர்", "malar",
+      "தேவதை:2", "devathai:2", "dhevathai:2", "என்னவளே:2", "ennavale:2", "என்னவனே:2", "ennavane:2", "அணைத்து", "anaithu", "மயக்கம்", "mayakkam",
+      "ஆசை", "aasai", "asai", "இனிமை", "inimai", "ரோஜா", "roja", "தென்றல்", "thendral", "துணை", "thunai", "கல்யாணம்", "kalyanam", "தாலி", "thaali",
+      "பெண்ணே", "penne", "அழகான", "azhagaana", "உன்னோடு", "unnodu", "மாமன்", "maaman", "கொஞ்சும்", "konjum", "ஏங்குது", "நிலவே", "nilave",
+      "பூவே:2", "poove:2", "மனம்", "காதலே:2", "kadhale:2", "உருகி", "urugi", "சுவாசம்", "swasam", "மடி", "madi", "விழி", "vizhi", "கண்கள்", "kangal"
+    ],
+    "calm": [
+      "அமைதி:2", "amaidhi:2", "amaithi:2", "நிம்மதி:2", "nimmadhi:2", "nimmathi:2", "மழை", "mazhai", "கடல்", "அலை", "alai", "வானம்", "vaanam",
+      "மேகம்", "megam", "நதி", "nadhi", "காற்று", "kaatru", "katru", "தூக்கம்", "thookkam", "தாலாட்டு:2", "thalattu:2", "thaalaattu:2",
+      "இயற்கை", "iyarkai", "மலை", "பனி", "pani", "மென்மை", "menmai", "மெல்ல", "mella", "விடியல்", "vidiyal", "சாரல்", "saaral", "ஓடை", "odai", "தூங்கு", "thoongu"
+    ],
+    "nostalgic": [
+      "நினைவு:2", "ninaivu:2", "நினைவுகள்:2", "ninaivugal:2", "ஞாபகம்:2", "nyabagam:2", "gnabagam:2", "nyaabagam:2", "பழைய", "pazhaya", "palaya",
+      "அன்று", "andru", "பள்ளி", "palli", "குழந்தை", "kuzhandhai", "கடந்த", "kadandha", "காலம்", "kaalam", "ஊர்", "oor", "வீடு", "veedu",
+      "அம்மா", "amma", "அப்பா", "appa", "நண்பன்", "nanban", "நண்பா", "nanba", "நட்பு:2", "natpu:2", "ஏக்கம்", "ekkam", "yekkam", "திரும்பி", "thirumbi",
+      "சின்ன", "chinna", "பிள்ளை", "pillai", "மறவாத", "தோழி", "thozhi", "தோழா", "thozha", "பால்யம்"
+    ],
+    "playful": [
+      "ஜாலி:2", "jolly:2", "jaali:2", "கொண்டாட்டம்", "kondattam", "kondaattam", "சிரிப்பு", "sirippu", "சிரி", "விளையாட்டு", "vilayattu", "vilaiyattu",
+      "குறும்பு:2", "kurumbu:2", "கலாட்டா:2", "kalatta:2", "galatta:2", "செம", "sema", "கும்மாளம்", "kummalam", "குஷி", "kushi", "khushi",
+      "ரகளை", "ragalai", "குட்டி", "kutti", "சுட்டி", "chutti", "ஜிலு", "jilu"
+    ],
+    "triumphant": [
+      "வெற்றி:2", "vetri:2", "veTri:2", "வீரம்:2", "veeram:2", "வீரன்", "veeran", "சிங்கம்:2", "singam:2", "புலி", "puli", "ராஜா", "raja",
+      "தலைவா:2", "thalaiva:2", "thalaivaa:2", "தலைவன்", "thalaivan", "எழுந்து", "ezhundhu", "ezhunthu", "சாதனை", "sadhanai", "saadhanai",
+      "பெருமை", "perumai", "தமிழ்", "tamizh", "thamizh", "மண்", "வெல்லு", "vellu", "ஜெயம்", "jeyam", "கெத்து:2", "gethu:2", "geththu:2",
+      "மாஸ்:2", "mass:2", "தில்லு", "thillu", "கர்ஜனை", "போராட்டம்", "porattam", "வீரா", "veera", "எழு", "சூரியன்", "sooriyan"
+    ],
+    "hype": [
+      "குத்து:2", "kuthu:2", "kuththu:2", "ஆட்டம்:2", "aattam:2", "aatam:2", "ஆடு", "ஆடலாம்", "aadalam", "டான்ஸ்", "dance", "வெறித்தனம்:2",
+      "verithanam:2", "veriththanam:2", "தெறி:2", "theri:2", "therikka:2", "பார்ட்டி", "party", "லோக்கல்", "local", "தர", "thara", "கும்மு", "kummu",
+      "அதிரடி:2", "adhiradi:2", "athiradi:2", "சரவெடி:2", "saravedi:2", "பட்டாசு:2", "pattasu:2", "விசில்", "whistle", "மரண", "marana", "ஆடுறோம்",
+      "குத்தாட்டம்:2", "kuthaattam:2", "டப்பாங்குத்து:2", "dappankuthu:2", "ஸ்டெப்", "step"
+    ],
+    "heartbreak": [
+      "கண்ணீர்:2", "kanneer:2", "kanner:2", "அழுகை:2", "azhugai:2", "அழு", "azhu", "பிரிவு:2", "pirivu:2", "தனிமை:2", "thanimai:2",
+      "சோகம்:2", "sogam:2", "soham:2", "வலி:2", "vali:2", "வேதனை:2", "vedhanai:2", "vethanai:2", "துயரம்", "thuyaram", "போனாயே:2", "ponaye:2",
+      "இழந்து", "izhandhu", "உடைந்த", "udaindha", "ஏமாற்றம்", "emaatram", "yemaatram", "காயம்", "kaayam", "மறந்து", "marandhu", "மறக்க", "marakka",
+      "தூரம்", "thooram", "வெறுமை", "verumai", "பிரிந்து", "pirindhu", "கதறி", "kadhari", "ஏங்கி", "yengi", "தவிப்பு", "thavippu", "தவிக்க",
+      "சோகமா", "உதறி", "விட்டுப்போ", "வாடி", "கலங்கி", "kalangi", "நொறுங்கி", "norungi"
+    ],
+    "revenge": [
+      "பழி:2", "pazhi:2", "pali:2", "பழிவாங்கு:2", "pazhivaangu:2", "கோபம்:2", "kobam:2", "gobam:2", "வெறி", "veri", "ரத்தம்:2", "ratham:2",
+      "raththam:2", "கொலை:2", "kolai:2", "கொல்லு", "kollu", "எதிரி:2", "ethiri:2", "edhiri:2", "துரோகம்:2", "throgam:2", "dhrogam:2", "துரோகி:2",
+      "throgi:2", "வஞ்சம்:2", "vanjam:2", "நெருப்பு", "neruppu", "எரி", "அழி", "வேட்டை:2", "vettai:2", "சண்டை", "sandai", "யுத்தம்", "yudham",
+      "போர்", "ஆயுதம்", "aayudham", "கத்தி", "kathi", "நரகம்", "naragam", "பகை:2", "pagai:2", "ருத்ரம்", "rudhram", "அடி", "வெட்டு", "vettu",
+      "சூறை", "தீர்ப்பு", "theerppu", "காளி", "kaali", "சம்ஹாரம்:2", "samhaaram:2"
+    ],
+    "dark": [
+      "இருள்:2", "irul:2", "இருட்டு:2", "iruttu:2", "பேய்:2", "pei:2", "பிசாசு", "pisasu", "சாவு", "saavu", "மரணம்:2", "maranam:2", "நிழல்", "nizhal",
+      "பயம்:2", "bayam:2", "payam:2", "அச்சம்", "acham", "சாபம்:2", "saabam:2", "மாயம்", "maayam", "ரகசியம்", "ragasiyam", "கல்லறை", "kallarai",
+      "பிணம்", "pinam", "நள்ளிரவு", "nalliravu", "அமாவாசை", "amavasai", "சாத்தான்", "saathaan"
+    ]
+  },
+  "effects": {
+    "burn": ["நெருப்பு", "neruppu", "தீ", "எரி", "எரியும்", "eriyum", "தீப்பொறி", "கனல்", "kanal", "அனல்", "anal"],
+    "heartbeat": ["இதயம்", "idhayam", "ithayam", "நெஞ்சு", "nenju", "நெஞ்சம்", "nenjam", "காதல்", "kadhal", "உயிர்", "uyir", "துடிக்க", "thudikka", "துடிப்பு"],
+    "drip": ["கண்ணீர்", "kanneer", "மழை", "mazhai", "அழு", "azhu", "துளி", "thuli", "சாரல்"],
+    "shatter": ["உடை", "உடைந்த", "udaindha", "நொறுங்கி", "norungi", "சிதறி", "sidhari", "வெடி", "vedi"],
+    "glow": ["நிலா", "nila", "நிலவே", "ஒளி", "oli", "வெளிச்சம்", "velicham", "சூரியன்", "sooriyan", "நட்சத்திரம்", "natchathiram", "தங்கம்", "thangam", "மின்னல்", "minnal"],
+    "shake": ["அதிர", "adhira", "அதிரடி", "adhiradi", "இடி", "idi", "புயல்", "puyal"],
+    "float": ["பறக்க", "parakka", "பற", "வானம்", "vaanam", "சிறகு", "siragu", "கனவு", "kanavu", "மிதக்க", "midhakka", "மேகம்"]
+  },
+  "negators": ["இல்லை", "illai", "இல்ல", "illa", "வேண்டாம்", "vendaam", "vendam", "முடியாது", "mudiyaadhu", "mudiyathu", "மாட்டேன்", "maatten", "matten", "இல்லாமல்", "illaamal"]
+}

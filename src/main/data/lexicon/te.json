@@ -1,0 +1,52 @@
+{
+  "lang": "te",
+  "name": "Telugu",
+  "script": "telugu",
+  "markers": ["nenu", "nuvvu", "naa", "nee", "ninnu", "nannu", "naaku", "neeku", "emi", "enti", "ledu", "lo", "ra", "ani", "cheppu", "kosam", "undi", "unna", "manasu", "prema", "cheli", "pilla", "amma", "oo", "ee", "aa", "ninne", "nene", "chesi", "ga", "gaa", "inka", "inthaga", "kadha", "raa", "vachhe", "vachindi"],
+  "moods": {
+    "romance": [
+      "ప్రేమ:2", "prema:2", "ప్రేమించు:2", "preminchu:2", "ప్రేమలో", "premalo", "ప్రియా:2", "priya:2", "ప్రియతమా:2", "priyathama:2", "priyatama:2",
+      "చెలి:2", "cheli:2", "చెలియా:2", "cheliya:2", "మనసు", "manasu", "గుండె", "gunde", "హృదయం", "hrudayam", "ముద్దు:2", "muddu:2", "అందం", "andam",
+      "అందాల", "andala", "కలలు", "kalalu", "కల", "kala", "వలపు:2", "valapu:2", "ఇష్టం", "ishtam", "బంగారం", "bangaram", "పిల్లా", "pilla", "జాబిలి", "jaabili",
+      "jabili", "వెన్నెల", "vennela", "కౌగిలి:2", "kougili:2", "సఖి", "sakhi", "మల్లె", "malle", "పెళ్లి", "pelli", "ఊహ", "ooha", "ప్రాణం", "pranam",
+      "చిలకా", "chilaka", "మురిపెం", "muripem", "సొగసు", "sogasu", "కన్నులు", "kannulu", "అమ్మాయి", "ammayi", "బుజ్జి", "bujji", "నీతో", "neetho", "నువ్వే", "nuvve"
+    ],
+    "calm": [
+      "శాంతి:2", "shanthi:2", "shanti:2", "ప్రశాంతం:2", "prashantham:2", "వాన", "vaana", "గాలి", "gaali", "నది", "nadi", "సముద్రం", "samudram",
+      "ఆకాశం", "aakasam", "aakasham", "మేఘం", "megham", "నిద్ర", "nidra", "జోల:2", "jola:2", "లాలి:2", "laali:2", "చల్లని", "challani", "తెల్లవారు"
+    ],
+    "nostalgic": [
+      "జ్ఞాపకం:2", "gnapakam:2", "జ్ఞాపకాలు:2", "gnapakalu:2", "గుర్తు", "gurthu", "gurtu", "గతం", "gatham", "చిన్నతనం:2", "chinnathanam:2",
+      "బాల్యం", "baalyam", "ఊరు", "ooru", "అమ్మ", "నాన్న", "nanna", "స్నేహం:2", "sneham:2", "స్నేహితుడు", "snehithudu", "ఆనాటి", "aanati", "పాత", "paatha"
+    ],
+    "playful": ["సరదా:2", "sarada:2", "saradaa:2", "నవ్వు", "navvu", "ఆట", "aata", "అల్లరి:2", "allari:2", "కొంటె", "konte", "జల్సా:2", "jalsa:2", "హుషారు:2", "husharu:2", "కిలకిల"],
+    "triumphant": [
+      "గెలుపు:2", "gelupu:2", "విజయం:2", "vijayam:2", "వీర", "veera", "వీరుడు", "veerudu", "సింహం:2", "simham:2", "రాజు", "raju", "ధైర్యం:2", "dhairyam:2",
+      "జై", "jai", "పోరాటం", "poratam", "యుద్ధం", "yuddham", "శక్తి", "shakthi", "తెలుగు", "telugu", "మాస్:2", "mass:2", "రణధీర", "విజేత", "vijetha"
+    ],
+    "hype": [
+      "డ్యాన్స్", "dance", "స్టెప్పు", "steppu", "ఊపు", "oopu", "దుమ్ము:2", "dhummu:2", "dummu:2", "రచ్చ:2", "racha:2", "rachcha:2", "జోష్", "josh",
+      "పార్టీ", "party", "దరువు:2", "daruvu:2", "తీన్మార్:2", "teenmaar:2", "teenmar:2", "మోత", "motha", "ఊర", "oora", "చిందు", "chindu", "చిందులు", "chindulu"
+    ],
+    "heartbreak": [
+      "కన్నీరు:2", "kanneeru:2", "కన్నీళ్లు:2", "kanneellu:2", "బాధ:2", "baadha:2", "badha:2", "విరహం:2", "viraham:2", "ఒంటరి:2", "ontari:2",
+      "దూరం", "dooram", "వీడ్కోలు:2", "veedkolu:2", "ఏడుపు", "edupu", "గాయం", "gaayam", "నొప్పి", "noppi", "విడిపోయి", "vidipoyi", "మోసం", "mosam",
+      "వెళ్ళిపోయావా", "మరచి", "marachi", "శోకం", "shokam", "కరిగి", "karigi", "చేజారి"
+    ],
+    "revenge": [
+      "పగ:2", "paga:2", "ప్రతీకారం:2", "pratheekaram:2", "కోపం:2", "kopam:2", "రక్తం:2", "raktham:2", "చంపు", "champu", "చావు", "chaavu", "శత్రువు:2",
+      "shatruvu:2", "ద్రోహం:2", "droham:2", "నిప్పు", "nippu", "మంట", "manta", "వేట:2", "veta:2", "రణం", "ranam", "ఊచకోత:2", "uchakotha:2", "రుద్ర", "rudra"
+    ],
+    "dark": ["చీకటి:2", "cheekati:2", "దెయ్యం", "deyyam", "మరణం:2", "maranam:2", "భయం:2", "bhayam:2", "నీడ", "needa", "శాపం", "saapam", "రాత్రి", "raatri", "కాళరాత్రి"]
+  },
+  "effects": {
+    "burn": ["నిప్పు", "nippu", "మంట", "manta", "అగ్ని", "agni", "జ్వాల", "jwala"],
+    "heartbeat": ["గుండె", "gunde", "హృదయం", "hrudayam", "మనసు", "manasu", "ప్రేమ", "prema"],
+    "drip": ["కన్నీరు", "kanneeru", "వాన", "vaana", "చినుకు", "chinuku"],
+    "shatter": ["ముక్కలు", "mukkalu", "పగిలి", "pagili"],
+    "glow": ["వెన్నెల", "vennela", "వెలుగు", "velugu", "జాబిలి", "jaabili", "సూర్యుడు", "suryudu", "తార", "thaara"],
+    "shake": ["పిడుగు", "pidugu", "తుఫాను", "tufaanu"],
+    "float": ["ఎగురు", "egaru", "ఎగిరే", "egire", "గాలి", "gaali", "రెక్కలు", "rekkalu", "ఆకాశం", "aakasam"]
+  },
+  "negators": ["లేదు", "ledu", "లేను", "lenu", "వద్దు", "vaddu", "కాదు", "kaadu", "లేక", "leka"]
+}

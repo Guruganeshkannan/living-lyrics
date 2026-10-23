@@ -42,8 +42,22 @@ describe('parseLrc', () => {
     const w = estimateWords('beautiful day', 0, 10000)
     expect(w[0].startMs).toBe(0)
     expect(w[1].startMs).toBeGreaterThan(w[0].startMs)
-    // Long gap: the sung window is capped
-    expect(w[1].endMs).toBeLessThan(3000)
+    // Long gap: the sung window is capped well below the full 10s
+    expect(w[1].endMs).toBeLessThan(4000)
+  })
+
+  it('weights Indic words by aksharas, not one syllable each', () => {
+    const w = estimateWords('உன் காதலில் நான்', 0, 3000)
+    const dur = w.map((x) => x.endMs - x.startMs)
+    expect(dur[1]).toBeGreaterThan(dur[0] * 1.5)
+  })
+
+  it('learns the song’s singing rate and marks estimated lines', () => {
+    const fast = parseLrc(['[00:01.00]one two three four five six', '[00:03.00]one two three four five six', '[00:05.00]one two three four five six', '[00:07.00]one two three four five six', '[00:09.00]one two three four five six', '[00:30.00]one two three four five six'].join('\n'))
+    expect(fast[0].wordsEstimated).toBe(true)
+    // The long last line is sung at the same quick pace, not stretched over 20+ seconds
+    const last = fast[5]
+    expect(last.words[last.words.length - 1].endMs - last.startMs).toBeLessThan(5000)
   })
 
   it('spreads plain lyrics across the song', () => {

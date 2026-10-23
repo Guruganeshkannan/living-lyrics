@@ -1,0 +1,25 @@
+{
+  "lang": "pa",
+  "name": "Punjabi",
+  "script": "gurmukhi",
+  "markers": ["menu", "tenu", "mainu", "ve", "ni", "kudi", "munda", "nal", "tere", "mere", "ae", "ho", "gaya", "gayi", "yaar", "jatt", "sohneya", "kithe", "kive", "sanu", "tuhanu"],
+  "moods": {
+    "romance": ["ਪਿਆਰ:2", "pyaar:2", "ਇਸ਼ਕ:2", "ishq:2", "ਦਿਲ", "dil", "ਜਾਨ", "jaan", "ਸੋਹਣੀ:2", "sohni:2", "ਸੋਹਣਿਆ:2", "sohneya:2", "ਮਾਹੀ", "mahi", "ਹੀਰ:2", "heer:2", "ਰਾਂਝਾ:2", "ranjha:2", "ਸੱਜਣ", "sajjan", "ਮਾਹੀਆ", "mahiya", "ਨੈਣ", "nain"],
+    "calm": ["ਸਕੂਨ:2", "sukoon:2"],
+    "nostalgic": ["ਯਾਦ:2", "yaad:2", "ਪਿੰਡ:2", "pind:2", "ਮਾਂ", "maa", "ਯਾਰ", "yaar", "ਬਚਪਨ", "bachpan"],
+    "playful": ["ਮਸਤੀ:2", "masti:2"],
+    "triumphant": ["ਜਿੱਤ:2", "jitt:2", "ਸ਼ੇਰ", "sher", "ਜੱਟ:2", "jatt:2", "ਗੱਭਰੂ:2", "gabru:2", "ਸਰਦਾਰ", "sardaar", "ਫ਼ਤਿਹ", "fateh", "ਖ਼ਾਲਸਾ", "khalsa"],
+    "hype": ["ਭੰਗੜਾ:2", "bhangra:2", "ਨੱਚ:2", "nach:2", "nachna:2", "ਬੱਲੇ", "balle", "ਢੋਲ:2", "dhol:2", "ਪਟਿਆਲਾ", "patiala", "ਸ਼ਾਵਾ", "shava", "ਗਿੱਧਾ:2", "giddha:2"],
+    "heartbreak": ["ਦਰਦ:2", "dard:2", "ਹੰਝੂ:2", "hanju:2", "ਵਿਛੋੜਾ:2", "vichhoda:2", "ਕੱਲਾ", "kalla", "ਬੇਵਫ਼ਾ:2", "bewafa:2", "ਰੋਣਾ", "rona"],
+    "revenge": ["ਬਦਲਾ:2", "badla:2", "ਗੁੱਸਾ:2", "gussa:2", "ਖ਼ੂਨ:2", "khoon:2", "ਵੈਰ:2", "vair:2", "ਦੁਸ਼ਮਣ:2", "dushman:2", "ਗੋਲੀ", "goli", "ਬੰਦੂਕ", "bandook"],
+    "dark": ["ਹਨੇਰਾ:2", "hanera:2", "ਮੌਤ:2", "maut:2"]
+  },
+  "effects": {
+    "burn": ["ਅੱਗ", "agg"],
+    "heartbeat": ["ਦਿਲ", "dil"],
+    "drip": ["ਹੰਝੂ", "hanju", "ਮੀਂਹ", "meenh"],
+    "glow": ["ਚੰਨ", "chann", "ਤਾਰੇ", "taare"],
+    "float": ["ਉੱਡ", "udd"]
+  },
+  "negators": ["ਨਹੀਂ", "nahi", "ਨਾ", "na"]
+}

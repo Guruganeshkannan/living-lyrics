@@ -1,0 +1,32 @@
+{
+  "lang": "ml",
+  "name": "Malayalam",
+  "script": "malayalam",
+  "markers": ["njan", "njaan", "nee", "ente", "ninte", "enthu", "entha", "alle", "aanu", "ninne", "enne", "oru", "ninnil", "ennil", "pole", "ithu", "athu", "enikku", "ninakku", "manassil", "pranayam", "ennum", "mazha", "chiri"],
+  "moods": {
+    "romance": [
+      "പ്രണയം:2", "pranayam:2", "പ്രണയ:2", "pranaya:2", "സ്നേഹം:2", "sneham:2", "ഇഷ്ടം", "ishtam", "ഹൃദയം", "hridayam", "മനസ്സ്", "manassu", "manasu",
+      "ചുംബനം:2", "chumbanam:2", "കണ്ണേ", "kanne", "പൊന്നേ:2", "ponne:2", "ഓമലേ:2", "omale:2", "സഖി", "sakhi", "പ്രിയേ:2", "priye:2", "പ്രിയനേ",
+      "കനവ്", "kanavu", "സ്വപ്നം", "swapnam", "നിലാവ്", "nilaavu", "nilavu", "മഞ്ഞ്", "manju", "മാലാഖ", "maalakha", "പൂവ്", "poovu", "മുത്തേ:2",
+      "muthe:2", "അനുരാഗം:2", "anuragam:2", "anuraagam:2", "ആരോമൽ", "aaromal", "മോഹം", "moham", "കിനാവ്", "kinaavu", "പെണ്ണേ", "penne"
+    ],
+    "calm": ["ശാന്തി:2", "shanthi:2", "മഴ", "mazha", "കാറ്റ്", "kaattu", "kaatu", "പുഴ", "puzha", "കടൽ", "ആകാശം", "aakasham", "മേഘം", "megham", "ഉറക്കം", "urakkam", "താരാട്ട്:2", "thaaraattu:2", "tharattu:2", "കുളിര്", "kulir", "തെന്നൽ", "thennal"],
+    "nostalgic": ["ഓർമ്മ:2", "orma:2", "ormma:2", "ഓർമ്മകൾ:2", "ormakal:2", "ബാല്യം", "baalyam", "പഴയ", "pazhaya", "നാട്", "naadu", "അമ്മ", "amma", "അച്ഛൻ", "achan", "കൂട്ടുകാരൻ", "koottukaran", "സൗഹൃദം:2", "souhrudam:2", "അന്ന്", "annu", "തിരികെ", "thirike"],
+    "playful": ["തമാശ", "thamasha", "ചിരി:2", "chiri:2", "കളി", "kali", "കുസൃതി:2", "kusruthi:2", "അടിപൊളി:2", "adipoli:2", "രസം", "rasam"],
+    "triumphant": ["വിജയം:2", "vijayam:2", "ജയം", "jayam", "വീരൻ", "veeran", "സിംഹം:2", "simham:2", "ധൈര്യം:2", "dhairyam:2", "പോരാട്ടം", "porattam", "കേരളം", "keralam", "ശക്തി", "shakthi"],
+    "hype": ["തകർപ്പൻ:2", "thakarppan:2", "പൊളി:2", "poli:2", "ആഘോഷം:2", "aaghosham:2", "aghosham:2", "ഡാൻസ്", "dance", "ചെണ്ട", "chenda", "മാസ്സ്:2", "mass:2", "തിമിർത്ത്", "thimirthu", "ആട്ടം", "aattam"],
+    "heartbreak": ["കണ്ണുനീർ:2", "kannuneer:2", "കണ്ണീർ:2", "kanneer:2", "വേദന:2", "vedana:2", "വിരഹം:2", "viraham:2", "ഏകാന്തം:2", "ekantham:2", "ദുഃഖം", "dukham", "കരയുക", "karayuka", "കരഞ്ഞു", "karanju", "വിട", "vida", "നോവ്", "novu", "മുറിവ്", "murivu", "വിരഹിണി", "നൊമ്പരം:2", "nombaram:2"],
+    "revenge": ["പക:2", "paka:2", "പ്രതികാരം:2", "prathikaram:2", "ദേഷ്യം:2", "deshyam:2", "കോപം", "kopam", "ചോര:2", "chora:2", "രക്തം", "raktham", "കൊല്ലുക", "kolluka", "ശത്രു:2", "shathru:2", "ചതി:2", "chathi:2", "യുദ്ധം", "yudham", "വേട്ട:2", "vetta:2", "രൗദ്രം", "roudram"],
+    "dark": ["ഇരുട്ട്:2", "iruttu:2", "പ്രേതം", "pretham", "മരണം:2", "maranam:2", "ഭയം:2", "bhayam:2", "നിഴൽ", "nizhal", "ശാപം", "shaapam", "രാത്രി", "raathri", "യക്ഷി", "yakshi"]
+  },
+  "effects": {
+    "burn": ["തീ", "അഗ്നി", "agni", "കനൽ", "kanal", "ജ്വാല"],
+    "heartbeat": ["ഹൃദയം", "hridayam", "നെഞ്ച്", "nenju", "പ്രണയം", "pranayam"],
+    "drip": ["കണ്ണുനീർ", "kannuneer", "മഴ", "mazha", "തുള്ളി", "thulli"],
+    "shatter": ["തകർന്ന", "thakarnna", "ചിതറി", "chithari"],
+    "glow": ["വെളിച്ചം", "velicham", "നിലാവ്", "nilaavu", "നക്ഷത്രം", "nakshathram", "സൂര്യൻ", "sooryan", "താരം", "thaaram"],
+    "shake": ["ഇടി", "idi", "കൊടുങ്കാറ്റ്"],
+    "float": ["പറക്കുക", "parakkuka", "പറന്ന്", "parannu", "ചിറക്", "chiraku", "ആകാശം"]
+  },
+  "negators": ["ഇല്ല", "illa", "വേണ്ട", "venda", "അല്ല", "alla", "ഇല്ലാതെ", "illathe"]
+}

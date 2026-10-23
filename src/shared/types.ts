@@ -29,6 +29,8 @@ export interface LyricLine {
   words: LyricWord[]
   /** True when a blank LRC line (stanza break) came right before this one */
   stanzaBreak: boolean
+  /** Word times were estimated (line-level LRC), not given by the file */
+  wordsEstimated: boolean
 }
 
 export type SectionType = 'intro' | 'verse' | 'chorus' | 'bridge' | 'instrumental' | 'outro'
@@ -81,7 +83,11 @@ export interface LyricAnalysis {
   lines: LineAnalysis[]
   sections: Section[]
   overall: MoodPoint & { dominant: MoodId; strength: number; weights: Partial<Record<MoodId, number>> }
+  /** Languages detected in the lyrics (ISO-ish codes: en, ta, hi, ...) */
+  languages: string[]
 }
+
+export type LyricsStatus = 'searching' | 'synced' | 'plain' | 'none' | 'instrumental' | 'error'
 
 export interface SongPayload {
   key: string
@@ -89,6 +95,9 @@ export interface SongPayload {
   lyrics: LyricLine[] | null
   /** false when lyrics were plain text and timing is estimated */
   synced: boolean
+  status: LyricsStatus
+  /** Where the lyrics came from, for the debug overlay */
+  source: string
   analysis: LyricAnalysis | null
   offsetMs: number
 }

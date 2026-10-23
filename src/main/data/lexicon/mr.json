@@ -1,0 +1,26 @@
+{
+  "lang": "mr",
+  "name": "Marathi",
+  "script": "devanagari",
+  "markers": ["mi", "majha", "majhi", "tujha", "tujhi", "aahe", "ahe", "nahi", "kay", "mala", "tula", "aata", "kasa", "kashi", "hota", "hoti", "jhala", "jhali", "sang"],
+  "nativeMarkers": ["आहे", "माझा", "माझी", "तुझा", "तुझी", "मला", "तुला", "झाला", "झाली", "नाही", "होता", "होती"],
+  "moods": {
+    "romance": ["प्रेम:2", "prem:2", "प्रीत:2", "preet:2", "माया", "maya", "मन", "mann", "सखी", "sakhi", "सजणा", "sajna", "लाडकी", "laadki", "चांदणे", "chandane", "प्रिये", "priye", "राणी", "raani"],
+    "calm": ["शांत:2", "shaant:2", "पाऊस:2", "paus:2", "वारा", "vaara", "आभाळ", "aabhaal", "नदी", "nadi"],
+    "nostalgic": ["आठवण:2", "aathvan:2", "आठवणी:2", "aathvani:2", "बालपण:2", "baalpan:2", "आई", "aai", "गाव", "gaav", "मैत्री", "maitri"],
+    "playful": ["मज्जा", "majja", "हसू", "hasu", "खेळ", "khel"],
+    "triumphant": ["विजय:2", "vijay:2", "जय", "jai", "वीर", "veer", "महाराष्ट्र", "maharashtra", "शिवबा", "shivba", "गर्जा", "garja"],
+    "hype": ["नाच", "naach", "झिंगाट:2", "zingaat:2", "ढोल", "dhol", "जल्लोष:2", "jallosh:2", "धमाल", "dhamaal", "लावणी", "lavani"],
+    "heartbreak": ["अश्रू:2", "ashru:2", "दुःख:2", "dukha:2", "विरह:2", "viraha:2", "एकटा", "ekta", "एकटी", "ekti", "वेदना:2", "vedana:2"],
+    "revenge": ["सूड:2", "sood:2", "राग", "raag", "रक्त:2", "rakt:2", "शत्रू:2", "shatru:2", "आग", "aag"],
+    "dark": ["अंधार:2", "andhaar:2", "मृत्यू:2", "mrutyu:2", "भीती:2", "bhiti:2"]
+  },
+  "effects": {
+    "burn": ["आग", "aag", "ज्वाला"],
+    "heartbeat": ["मन", "हृदय", "प्रेम"],
+    "drip": ["अश्रू", "पाऊस", "paus"],
+    "glow": ["चांदणे", "चंद्र", "प्रकाश"],
+    "float": ["उडू", "आभाळ"]
+  },
+  "negators": ["नाही", "nahi", "नको", "nako"]
+}

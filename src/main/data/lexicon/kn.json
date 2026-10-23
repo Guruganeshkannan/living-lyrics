@@ -1,0 +1,32 @@
+{
+  "lang": "kn",
+  "name": "Kannada",
+  "script": "kannada",
+  "markers": ["naanu", "nanu", "neenu", "ninu", "nanna", "ninna", "ninage", "nanage", "yenu", "enu", "beda", "baa", "hogu", "ide", "alli", "illi", "jothe", "hosa", "ondu", "yaake", "hege", "matthu", "agide", "bandu", "nodu", "ninne", "nanne"],
+  "moods": {
+    "romance": [
+      "ಪ್ರೀತಿ:2", "preethi:2", "preeti:2", "ಪ್ರೇಮ:2", "prema:2", "ಒಲವು:2", "olavu:2", "ಹೃದಯ", "hrudaya", "ಮನಸು", "manasu", "ಮನಸ್ಸು", "manassu",
+      "ಚೆಲುವೆ:2", "cheluve:2", "ಚೆಲುವ", "cheluva", "ಮುತ್ತು:2", "muttu:2", "ಕನಸು", "kanasu", "ಪ್ರಿಯೆ:2", "priye:2", "ಇನಿಯ:2", "iniya:2", "ಇನಿಯೆ:2",
+      "ಬೆಳದಿಂಗಳು", "beladingalu", "ಚಂದ", "chanda", "ಸುಂದರಿ", "sundari", "ಮದುವೆ", "maduve", "ಅಪ್ಪುಗೆ:2", "appuge:2", "ಹುಡುಗಿ", "hudugi", "ಜೀವ", "jeeva",
+      "ಕಣ್ಣು", "kannu", "ನಲ್ಲೆ:2", "nalle:2", "ಚಿನ್ನ", "chinna", "ಬಂಗಾರ", "bangara"
+    ],
+    "calm": ["ಶಾಂತಿ:2", "shanthi:2", "ಮಳೆ", "male", "ಗಾಳಿ", "gaali", "ನದಿ", "nadi", "ಕಡಲು", "kadalu", "ಆಕಾಶ", "aakasha", "ಮೋಡ", "moda", "ನಿದ್ದೆ", "nidde", "ಜೋಗುಳ:2", "jogula:2", "ತಂಗಾಳಿ", "tangaali"],
+    "nostalgic": ["ನೆನಪು:2", "nenapu:2", "ನೆನಪುಗಳು:2", "nenapugalu:2", "ಬಾಲ್ಯ", "baalya", "ಹಳೆಯ", "haleya", "ಊರು", "ooru", "ಅಮ್ಮ", "amma", "ಅಪ್ಪ", "appa", "ಗೆಳೆಯ", "geleya", "ಗೆಳತಿ", "gelati", "ಸ್ನೇಹ:2", "sneha:2", "ಅಂದು", "andu"],
+    "playful": ["ತಮಾಷೆ", "tamaashe", "ನಗು", "nagu", "ಆಟ", "aata", "ತುಂಟ:2", "tunta:2", "ಮಜಾ", "maja", "ಖುಷಿ:2", "khushi:2", "ಕುಶಿ"],
+    "triumphant": ["ಗೆಲುವು:2", "geluvu:2", "ವಿಜಯ:2", "vijaya:2", "ವೀರ", "veera", "ಸಿಂಹ:2", "simha:2", "ರಾಜ", "raja", "ಧೈರ್ಯ:2", "dhairya:2", "ಕನ್ನಡ", "kannada", "ಜೈ", "jai", "ಹೋರಾಟ", "horaata", "ಶಕ್ತಿ", "shakti"],
+    "hype": ["ಕುಣಿ", "kuni", "ಕುಣಿತ:2", "kunita:2", "ಹಬ್ಬ:2", "habba:2", "ಡ್ಯಾನ್ಸ್", "dance", "ಜೋಶ್", "josh", "ಮಸ್ತ್", "mast", "ಸಖತ್:2", "sakkath:2", "sakath:2", "ಡೊಳ್ಳು", "dollu"],
+    "heartbreak": ["ಕಣ್ಣೀರು:2", "kanneeru:2", "ನೋವು:2", "novu:2", "ವಿರಹ:2", "viraha:2", "ಒಂಟಿ:2", "onti:2", "ಒಂಟಿತನ:2", "ontitana:2", "ದೂರ", "doora", "ಅಳು", "ದುಃಖ", "dukha", "ಮೋಸ", "mosa", "ಗಾಯ", "gaaya", "ವಿದಾಯ", "vidaaya", "ಮರೆತು", "maretu"],
+    "revenge": ["ಸೇಡು:2", "sedu:2", "ಕೋಪ:2", "kopa:2", "ರಕ್ತ:2", "raktha:2", "rakta:2", "ಕೊಲ್ಲು", "kollu", "ಶತ್ರು:2", "shatru:2", "ದ್ರೋಹ:2", "droha:2", "ಬೆಂಕಿ", "benki", "ಯುದ್ಧ", "yuddha", "ಬೇಟೆ:2", "bete:2", "ರೌದ್ರ", "raudra"],
+    "dark": ["ಕತ್ತಲು:2", "kattalu:2", "ಕತ್ತಲೆ:2", "kattale:2", "ದೆವ್ವ", "devva", "ಸಾವು:2", "saavu:2", "ಭಯ:2", "bhaya:2", "ನೆರಳು", "neralu", "ಶಾಪ", "shaapa"]
+  },
+  "effects": {
+    "burn": ["ಬೆಂಕಿ", "benki", "ಉರಿ", "uri", "ಜ್ವಾಲೆ"],
+    "heartbeat": ["ಹೃದಯ", "hrudaya", "ಎದೆ", "ede", "ಪ್ರೀತಿ", "preethi"],
+    "drip": ["ಕಣ್ಣೀರು", "kanneeru", "ಮಳೆ", "male", "ಹನಿ", "hani"],
+    "shatter": ["ಒಡೆದ", "odeda", "ಚೂರು", "chooru"],
+    "glow": ["ಬೆಳಕು", "belaku", "ಚಂದಿರ", "chandira", "ಬೆಳದಿಂಗಳು", "ನಕ್ಷತ್ರ", "nakshatra", "ಸೂರ್ಯ", "surya"],
+    "shake": ["ಸಿಡಿಲು", "sidilu", "ಗುಡುಗು", "gudugu"],
+    "float": ["ಹಾರು", "haaru", "ರೆಕ್ಕೆ", "rekke", "ಆಕಾಶ", "aakasha"]
+  },
+  "negators": ["ಇಲ್ಲ", "illa", "ಬೇಡ", "beda", "ಅಲ್ಲ", "alla", "ಇಲ್ಲದೆ", "illade"]
+}

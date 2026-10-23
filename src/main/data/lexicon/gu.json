@@ -1,0 +1,24 @@
+{
+  "lang": "gu",
+  "name": "Gujarati",
+  "script": "gujarati",
+  "markers": ["hu", "maru", "taru", "mari", "tari", "che", "chhe", "nathi", "shu", "kem", "tame", "ame", "mane", "tane", "saathe", "re"],
+  "moods": {
+    "romance": ["પ્રેમ:2", "prem:2", "પ્યાર:2", "pyaar:2", "દિલ", "dil", "હૈયું", "haiyu", "વહાલ:2", "vahal:2", "સાજન", "saajan", "પ્રીત:2", "preet:2", "સાયબા", "saayba"],
+    "calm": ["વરસાદ:2", "varsad:2", "શાંતિ:2", "shanti:2"],
+    "nostalgic": ["યાદ:2", "yaad:2", "બાળપણ:2", "baalpan:2", "ગામ", "gaam", "મા", "maa"],
+    "playful": ["મજા", "maja", "હસવું", "hasvu"],
+    "triumphant": ["જીત:2", "jeet:2", "વિજય:2", "vijay:2", "જય", "jai"],
+    "hype": ["ગરબા:2", "garba:2", "રાસ:2", "raas:2", "ઢોલ:2", "dhol:2", "નાચ", "naach", "ધૂમ", "dhoom"],
+    "heartbreak": ["આંસુ:2", "aansu:2", "દુઃખ:2", "dukh:2", "વિરહ:2", "viraha:2", "એકલો", "eklo", "એકલી", "ekli"],
+    "revenge": ["બદલો:2", "badlo:2", "ગુસ્સો:2", "gusso:2", "લોહી:2", "lohi:2"],
+    "dark": ["અંધારું:2", "andharu:2", "મોત:2", "mot:2"]
+  },
+  "effects": {
+    "burn": ["આગ", "aag"],
+    "heartbeat": ["દિલ", "હૈયું"],
+    "drip": ["આંસુ", "વરસાદ"],
+    "glow": ["ચાંદ", "chaand", "ચાંદની"]
+  },
+  "negators": ["નથી", "nathi", "ના", "na"]
+}

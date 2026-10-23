@@ -1,0 +1,70 @@
+{
+  "lang": "hi",
+  "name": "Hindi",
+  "script": "devanagari",
+  "markers": ["hai", "hain", "mein", "main", "tera", "teri", "tere", "mera", "meri", "mere", "tujhe", "mujhe", "tujhse", "mujhse", "tu", "tum", "hum", "kya", "nahi", "nahin", "ke", "ki", "ko", "se", "yeh", "woh", "ye", "wo", "kyun", "kyon", "kaise", "jab", "tab", "bhi", "aur", "dil", "pyaar", "zindagi", "jaana", "hoon", "ho", "tha", "thi", "kar", "karke", "raha", "rahi", "saath", "ab", "kabhi", "sab"],
+  "moods": {
+    "romance": [
+      "प्यार:2", "pyaar:2", "pyar:2", "इश्क़:2", "इश्क:2", "ishq:2", "मोहब्बत:2", "mohabbat:2", "muhabbat:2", "प्रेम:2", "prem:2", "दिल", "dil",
+      "दिलबर:2", "dilbar:2", "जान", "jaan", "जानम:2", "jaanam:2", "janam:2", "सनम:2", "sanam:2", "महबूब:2", "mehboob:2", "माही", "mahi", "maahi",
+      "हमसफ़र:2", "हमसफर:2", "humsafar:2", "साजन", "saajan", "sajan", "सजना", "sajna", "sajnaa", "बाहों", "baahon", "bahon", "आँखें", "आंखें", "aankhen",
+      "होंठ", "honth", "चाहत:2", "chahat:2", "chaahat:2", "दीवाना:2", "deewana:2", "diwana:2", "दीवानी:2", "deewani:2", "आशिक़", "आशिक", "aashiq", "ashiq",
+      "आशिकी:2", "aashiqui:2", "aashiqi:2", "धड़कन", "dhadkan", "सपने", "sapne", "ख़्वाब", "ख्वाब", "khwab", "khwaab", "रूह", "rooh", "हसीन", "haseen",
+      "चाँद", "चांद", "chaand", "chand", "चाँदनी", "chandni", "मिलन", "milan", "हमेशा", "hamesha", "क़रीब", "करीब", "kareeb", "qareeb", "शादी", "shaadi",
+      "दुल्हन", "dulhan", "मेहंदी", "mehendi", "mehndi", "प्रीत", "preet", "सजनी", "sajni", "दिलरुबा:2", "dilruba:2", "जानेमन:2", "jaaneman:2",
+      "सोणी", "soni", "sohni", "चूम", "choom", "बेइंतहा", "beintehaa", "दुआ", "dua", "रहमत", "zindagi", "ज़िंदगी", "ज़िन्दगी", "तुम्हें", "मुस्कान", "muskaan", "muskan"
+    ],
+    "calm": [
+      "सुकून:2", "sukoon:2", "sukun:2", "शांति:2", "shanti:2", "shaanti:2", "आराम", "aaram", "बारिश", "baarish", "barish", "हवा", "hawa", "नदी", "nadi",
+      "सागर", "saagar", "sagar", "आसमान", "aasmaan", "asmaan", "बादल", "baadal", "badal", "नींद", "neend", "लोरी:2", "lori:2", "सवेरा", "savera",
+      "धीरे", "dheere", "dhire", "ठंडी", "thandi", "ख़ामोशी", "खामोशी", "khamoshi", "सुबह", "subah", "पुरवाई", "purvai", "चैन:2", "chain:2", "chaen:2"
+    ],
+    "nostalgic": [
+      "याद:2", "yaad:2", "यादें:2", "yaadein:2", "yaadon:2", "बचपन:2", "bachpan:2", "पुराने", "purane", "पुराना", "purana", "गुज़रा", "guzra", "बीते", "beete",
+      "ज़माना", "जमाना", "zamana", "zamaana", "गाँव", "गांव", "gaon", "माँ", "मां", "maa", "घर", "ghar", "दोस्ती:2", "dosti:2", "यार", "yaar", "लम्हे", "lamhe",
+      "बीता", "beeta", "किस्से", "kisse", "पुरानी", "purani", "बरसों", "barson", "वापस", "waapas", "wapas", "दोस्त", "dost"
+    ],
+    "playful": [
+      "मस्ती:2", "masti:2", "धमाल:2", "dhamaal:2", "dhamal:2", "शरारत:2", "shararat:2", "हँसी", "हंसी", "hansi", "मज़ा", "मजा", "maza", "mazaa", "खेल", "khel",
+      "नखरे", "nakhre", "पटाखा", "patakha", "चुलबुली", "chulbuli", "छैल", "chhail", "ठुमके", "thumke", "गपशप", "gupshup", "बिंदास:2", "bindaas:2"
+    ],
+    "triumphant": [
+      "जीत:2", "jeet:2", "विजय:2", "vijay:2", "जय", "jai", "शेर", "sher", "बादशाह", "badshah", "baadshah", "राजा", "raja", "सिकंदर", "sikander",
+      "हौसला:2", "hausla:2", "हौसले", "hausle", "जुनून", "junoon", "jazba", "जज़्बा", "जज्बा", "उड़ान", "udaan", "udan", "ताक़त", "ताकत", "taakat", "taqat",
+      "वीर", "veer", "शान", "shaan", "फ़तेह", "फतेह", "fateh", "ज़िंदाबाद:2", "zindabad:2", "वतन:2", "watan:2", "vatan:2", "तिरंगा", "tiranga",
+      "भारत", "bharat", "हिंदुस्तान", "hindustan", "लड़ेंगे", "ladenge", "जीतेंगे", "jeetenge", "दम", "chak", "बहादुर", "bahadur", "सलाम", "salaam"
+    ],
+    "hype": [
+      "नाच:2", "naach:2", "nach:2", "नाचो", "nacho", "ठुमका:2", "thumka:2", "डांस", "dance", "पार्टी", "party", "धूम:2", "dhoom:2", "धमाका:2", "dhamaka:2",
+      "झूम", "jhoom", "बल्ले", "balle", "शावा", "shava", "भांगड़ा:2", "bhangra:2", "ढोल:2", "dhol:2", "जश्न:2", "jashn:2", "ताल", "taal", "झूमो", "jhoomo",
+      "नचले", "nachle", "मचा", "macha", "बजा", "baja", "dj", "हल्ला", "halla", "गल्ला"
+    ],
+    "heartbreak": [
+      "दर्द:2", "dard:2", "आँसू:2", "आंसू:2", "aansu:2", "aasu:2", "ग़म:2", "गम:2", "gham:2", "जुदाई:2", "judaai:2", "judai:2", "तन्हा:2", "tanha:2",
+      "तन्हाई:2", "tanhai:2", "tanhaai:2", "अकेला", "akela", "अकेले", "akele", "बेवफ़ा:2", "बेवफा:2", "bewafa:2", "bewafaa:2", "बेवफ़ाई", "bewafai",
+      "टूटा", "toota", "टूट", "toot", "रोना", "rona", "रोए", "roye", "रुला", "rula", "अलविदा:2", "alvida:2", "दूरी", "doori", "जुदा", "juda",
+      "ज़ख़्म", "जख्म", "zakhm", "मजबूर", "majboor", "आहें", "aahein", "सज़ा", "सजा", "saza", "तड़प:2", "tadap:2", "बिछड़", "bichhad", "bichad",
+      "अधूरा", "adhura", "adhoora", "रुसवा", "ruswa", "बेचैन", "bechain", "टूटे", "toote", "बिखर", "bikhar", "वीरान", "veeran", "सूना", "soona"
+    ],
+    "revenge": [
+      "बदला:2", "badla:2", "इंतक़ाम:2", "इंतकाम:2", "inteqam:2", "intekam:2", "नफ़रत:2", "नफरत:2", "nafrat:2", "ग़ुस्सा:2", "गुस्सा:2", "gussa:2",
+      "खून:2", "ख़ून:2", "khoon:2", "क़त्ल:2", "कत्ल:2", "qatl:2", "katl:2", "मारूँगा", "maarunga", "दुश्मन:2", "dushman:2", "धोखा:2", "dhokha:2",
+      "धोखेबाज़", "dhokebaaz", "गद्दार:2", "gaddar:2", "gaddaar:2", "जला", "jala", "तबाही:2", "tabaahi:2", "tabahi:2", "बर्बाद", "barbaad", "barbad",
+      "ज़हर", "जहर", "zeher", "zehar", "हिसाब", "hisaab", "hisab", "सबक", "sabak", "जंग", "jung", "शोले", "shole", "आतंक", "ख़ूनी", "khooni", "दहशत", "dehshat"
+    ],
+    "dark": [
+      "अँधेरा:2", "अंधेरा:2", "andhera:2", "अंधेरे", "andhere", "मौत:2", "maut:2", "शैतान:2", "shaitan:2", "shaitaan:2", "भूत", "bhoot", "साया", "saaya",
+      "डर:2", "darr:2", "ख़ौफ़", "खौफ", "khauf", "क़ब्र", "कब्र", "kabr", "qabr", "लाश", "laash", "जहन्नुम", "jahannum", "श्मशान", "shamshaan", "काली", "kaali"
+    ]
+  },
+  "effects": {
+    "burn": ["आग", "aag", "जल", "जला", "jala", "जलता", "jalta", "शोले", "shole", "अंगार", "angaar", "लपटें", "aatish"],
+    "heartbeat": ["दिल", "dil", "धड़कन", "dhadkan", "प्यार", "pyaar", "pyar", "जान", "jaan", "धक"],
+    "drip": ["आँसू", "आंसू", "aansu", "बारिश", "baarish", "barish", "रोना", "rona", "बूँद", "boond"],
+    "shatter": ["टूट", "toot", "टूटा", "toota", "बिखर", "bikhar", "चूर", "choor"],
+    "glow": ["चाँद", "चांद", "chaand", "chand", "रोशनी", "roshni", "सितारे", "sitare", "चाँदनी", "chandni", "सूरज", "suraj", "नूर", "noor", "उजाला", "ujala"],
+    "shake": ["ज़लज़ला", "zalzala", "तूफ़ान", "तूफान", "toofan", "toofaan", "धमाका", "dhamaka"],
+    "float": ["उड़", "udd", "उड़ान", "udaan", "आसमान", "aasmaan", "पंख", "pankh", "हवा", "hawa"]
+  },
+  "negators": ["नहीं", "nahi", "nahin", "ना", "na", "मत", "mat", "बिना", "bina", "कभी नहीं"]
+}
