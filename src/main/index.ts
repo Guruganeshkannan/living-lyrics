@@ -10,6 +10,7 @@ import { parseLrc, spreadPlainLyrics } from './lrcParser'
 import { analyzeLyrics } from './lyricMood'
 import { LyricsNetworkError, fetchLyrics } from './lyricsService'
 import { MediaWatcher, trackKey } from './mediaWatcher'
+import { settings } from './settings'
 
 interface CachedSong {
   lyrics: LyricLine[] | null
@@ -137,17 +138,23 @@ async function loadSong(track: TrackInfo, force = false): Promise<void> {
     return
   }
 
-  // 2. Cache (misses expire so new uploads to LRCLIB get picked up)
-  const fresh = cached && cached.v === CACHE_VERSION && (cached.lyrics || Date.now() - cached.savedAt < MISS_TTL_MS)
+  // 2. Cache. Synced lyrics stay; misses and plain-only results are retried after a day,
+  //    so lyrics added to the sources later get picked up
+  const fresh = cached && cached.v === CACHE_VERSION && ((cached.lyrics && cached.synced) || Date.now() - cached.savedAt < MISS_TTL_MS)
   if (fresh && !force) {
     sendIfCurrent({ key, track, lyrics: cached.lyrics, synced: cached.synced, status: cached.status, source: `cache (${cached.source})`, analysis: cached.analysis, offsetMs })
     return
   }
 
-  // 3. Network, with a visible "searching" state
-  sendIfCurrent({ ...base, offsetMs, status: 'searching', source: '' })
+  // 3. Every online source in parallel, with live progress
+  const cfg = settings()
+  sendIfCurrent({ ...base, offsetMs, status: 'searching', source: cfg.providers.join(', ') })
   try {
-    const result = await fetchLyrics(track.title, track.artist, track.durationMs, track.album)
+    const result = await fetchLyrics(track.title, track.artist, track.durationMs, track.album, {
+      providers: cfg.providers,
+      deadlineMs: cfg.searchTimeoutMs,
+      onProgress: (pending) => pending.length && sendIfCurrent({ ...base, offsetMs, status: 'searching', source: pending.join(', ') })
+    })
     if (!result) finish(null, false, 'none', 'not found', true)
     else if (result.instrumental) finish(null, false, 'instrumental', result.source, true)
     else finish(result.lines, result.synced, result.synced ? 'synced' : 'plain', result.source, true)

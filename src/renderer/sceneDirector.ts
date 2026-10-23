@@ -442,7 +442,7 @@ function statusText(s: SongPayload | null): string {
   if (!s) return ''
   switch (s.status) {
     case 'searching':
-      return 'searching lyrics…'
+      return s.source ? `searching lyrics · ${s.source}` : 'searching lyrics…'
     case 'plain':
       return 'no synced lyrics found · timing is estimated · [ ] to nudge'
     case 'none':

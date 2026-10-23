@@ -1,19 +1,12 @@
 import type { LyricLine } from '@shared/types'
+import { lrclib } from './providers/lrclib'
+import { lyricsOvh } from './providers/lyricsOvh'
+import { similarity } from './providers/match'
+import { musixmatch } from './providers/musixmatch'
+import { netease } from './providers/netease'
+import { ProviderNetworkError } from './providers/http'
+import type { Candidate, LyricsProvider, Query } from './providers/types'
 import { parseLrc, spreadPlainLyrics } from './lrcParser'
-import { normalizeRoman } from './lyricMood'
-
-const API = 'https://lrclib.net/api'
-const HEADERS = { 'User-Agent': 'LivingLyrics/0.2 (personal lyric visualizer)' }
-
-interface LrcLibRecord {
-  trackName: string
-  artistName: string
-  albumName?: string
-  duration: number
-  instrumental: boolean
-  plainLyrics: string | null
-  syncedLyrics: string | null
-}
 
 export interface LyricsResult {
   lines: LyricLine[]
@@ -23,7 +16,7 @@ export interface LyricsResult {
   source: string
 }
 
-/** Thrown when LRCLIB can't be reached at all (as opposed to "no lyrics exist"). */
+/** Thrown when no lyrics source could be reached at all (as opposed to "no lyrics exist"). */
 export class LyricsNetworkError extends Error {}
 
 // Record labels / channels that upload songs but aren't the artist
@@ -51,12 +44,12 @@ function stripDecorations(t: string): string {
 }
 
 /**
- * Turn whatever the player reports into candidate (title, artist) pairs.
+ * Turn whatever the player reports into candidate (title, artist) pairs, best first.
  * YouTube gives "Artist - Song (Official Video) | Movie | Label" with the channel as artist;
  * Spotify gives clean fields but Indian film songs carry "(From "Movie")".
  */
-export function trackVariants(title: string, artist: string): { title: string; artist: string }[] {
-  const out: { title: string; artist: string }[] = []
+export function trackVariants(title: string, artist: string): Query[] {
+  const out: Query[] = []
   const add = (t: string, a: string) => {
     const tt = stripDecorations(t)
     const aa = a.trim()
@@ -69,6 +62,8 @@ export function trackVariants(title: string, artist: string): { title: string; a
   // "Song | Movie | Actor" → the first segment is the song
   const segments = title.split(/\s*[|｜]\s*/).filter(Boolean)
   const head = segments[0] ?? title
+  // A real artist means the title field is trustworthy (Spotify, Apple Music): try it as-is first
+  if (a) add(head, a)
   const dash = head.match(/^(.+?)\s+[-–—]\s+(.+)$/)
   if (dash) {
     const [, left, right] = dash
@@ -78,164 +73,140 @@ export function trackVariants(title: string, artist: string): { title: string; a
     if (leftClean) add(leftClean, a || rightClean) // "Song - Movie"
   }
   add(head, a)
-  if (segments.length > 1) add(head, '')
-  if (a) add(title, '')
+  if (segments.length > 1 || a) add(head, '')
   return out
 }
 
-/* ---------- similarity ---------- */
+export { similarity }
 
-function simKey(s: string): string {
-  const base = s
-    .normalize('NFC')
-    .toLowerCase()
-    .replace(/\(.*?\)|\[.*?\]/g, ' ')
-    .replace(/[^\p{L}\p{M}\p{N}]+/gu, ' ')
-    .trim()
-  // Fold romanization variants so "Kaadhal" ~ "Kadhal"
-  return /^[a-z0-9 ]+$/.test(base) ? base.split(' ').map(normalizeRoman).join(' ') : base
+/* ---------- scoring ---------- */
+
+const PROVIDER_BONUS: Record<string, number> = { musixmatch: 3, lrclib: 2, netease: 0, 'lyrics.ovh': -5 }
+
+function lastTimestamp(lrc: string): number {
+  let last = 0
+  for (const m of lrc.matchAll(/\[(\d+):(\d+(?:\.\d+)?)\]/g)) last = Math.max(last, Number(m[1]) * 60 + Number(m[2]))
+  return last
 }
-
-/** Dice coefficient over character bigrams: 1 = identical. */
-export function similarity(a: string, b: string): number {
-  const x = simKey(a)
-  const y = simKey(b)
-  if (!x || !y) return 0
-  if (x === y) return 1
-  const grams = (s: string) => {
-    const cps = Array.from(s.replace(/ /g, ''))
-    const m = new Map<string, number>()
-    for (let i = 0; i < cps.length - 1; i++) {
-      const g = cps[i] + cps[i + 1]
-      m.set(g, (m.get(g) ?? 0) + 1)
-    }
-    return m
-  }
-  const gx = grams(x)
-  const gy = grams(y)
-  let inter = 0
-  let total = 0
-  gx.forEach((n, g) => {
-    inter += Math.min(n, gy.get(g) ?? 0)
-    total += n
-  })
-  gy.forEach((n) => (total += n))
-  // Containment also counts: "Arabic Kuthu" vs "Arabic Kuthu - Halamithi Habibo"
-  const contained = x.includes(y) || y.includes(x) ? 0.85 : 0
-  return Math.max(contained, total ? (2 * inter) / total : 0)
-}
-
-/* ---------- network ---------- */
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
-
-async function getJson<T>(url: string): Promise<T | null> {
-  let lastErr: unknown = null
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(8000) })
-      if (res.status === 404) return null
-      if (res.ok) return (await res.json()) as T
-      lastErr = new Error(`HTTP ${res.status}`)
-      if (res.status < 500 && res.status !== 429) return null
-    } catch (e) {
-      lastErr = e
-    }
-    await sleep(500 * Math.pow(3, attempt))
-  }
-  throw new LyricsNetworkError(String(lastErr))
-}
-
-/* ---------- matching ---------- */
 
 /** The lyrics must plausibly fit the track; otherwise it's a different version/edit. */
-function fitsDuration(rec: LrcLibRecord, durationMs: number): boolean {
+function fitsDuration(c: Candidate, durationMs: number): boolean {
   if (durationMs <= 0) return true
   const d = durationMs / 1000
-  if (Math.abs(rec.duration - d) > 20) return false
-  if (rec.syncedLyrics) {
-    const times = [...rec.syncedLyrics.matchAll(/\[(\d+):(\d+(?:\.\d+)?)\]/g)].map((m) => Number(m[1]) * 60 + Number(m[2]))
-    const last = times.length ? Math.max(...times) : 0
-    if (last > d + 20) return false
-  }
+  if (c.duration > 0 && Math.abs(c.duration - d) > 20) return false
+  if (c.synced && lastTimestamp(c.synced) > d + 20) return false
   return true
 }
 
-function score(rec: LrcLibRecord, want: { title: string; artist: string }, durationMs: number): number {
-  const t = similarity(rec.trackName, want.title)
-  const a = want.artist ? similarity(rec.artistName, want.artist) : 0.5
-  const dd = durationMs > 0 ? Math.abs(rec.duration - durationMs / 1000) : 10
-  const dScore = Math.max(0, 1 - dd / 20)
-  return t * 60 + a * 25 + dScore * 15 + (rec.syncedLyrics ? 10 : 0)
+interface Scored {
+  c: Candidate
+  score: number
+  title: number
+  artist: number
 }
 
-function toResult(rec: LrcLibRecord, durationMs: number, source: string): LyricsResult | null {
-  if (rec.instrumental) return { lines: [], synced: false, instrumental: true, source }
-  if (rec.syncedLyrics) {
-    const lines = parseLrc(rec.syncedLyrics, durationMs)
+function rate(c: Candidate, variants: Query[], durationMs: number): Scored {
+  let title = 0
+  let artist = 0.5
+  for (const v of variants) {
+    const t = similarity(c.trackName, v.title)
+    if (t > title) {
+      title = t
+      artist = v.artist ? similarity(c.artistName, v.artist) : 0.5
+    }
+  }
+  const dd = durationMs > 0 && c.duration > 0 ? Math.abs(c.duration - durationMs / 1000) : 10
+  const score = title * 60 + artist * 25 + Math.max(0, 1 - dd / 20) * 15 + (c.synced ? 10 : 0) + (c.wordLevel ? 12 : 0) + (PROVIDER_BONUS[c.provider] ?? 0)
+  return { c, score, title, artist }
+}
+
+function toResult(s: Scored, durationMs: number): LyricsResult | null {
+  const { c } = s
+  const source = `${c.provider} ${c.via}`
+  if (c.instrumental) return { lines: [], synced: false, instrumental: true, source }
+  if (c.synced) {
+    const lines = parseLrc(c.synced, durationMs)
     if (lines.length) return { lines, synced: true, instrumental: false, source }
   }
-  if (rec.plainLyrics) return { lines: spreadPlainLyrics(rec.plainLyrics, durationMs || rec.duration * 1000), synced: false, instrumental: false, source }
+  if (c.plain) {
+    const lines = spreadPlainLyrics(c.plain, durationMs || c.duration * 1000)
+    if (lines.length) return { lines, synced: false, instrumental: false, source }
+  }
   return null
+}
+
+/* ---------- orchestration ---------- */
+
+export const ALL_PROVIDERS: LyricsProvider[] = [lrclib, musixmatch, netease, lyricsOvh]
+
+export interface FetchOptions {
+  /** Provider names to use (default: all) */
+  providers?: string[]
+  /** Called whenever the set of still-searching providers changes */
+  onProgress?: (pending: string[]) => void
+  /** Hard limit for the whole search */
+  deadlineMs?: number
+  /** Override the provider implementations (tests) */
+  impls?: LyricsProvider[]
 }
 
 /**
- * Lookup cascade: exact /get → searches with progressively looser queries,
- * scoring every candidate by title/artist similarity and duration.
- * Returns null when nothing exists; throws LyricsNetworkError when offline.
+ * Search every lyrics source at once. A strong synced match ends the search early
+ * (after a short grace period in case a word-timed version is about to arrive);
+ * otherwise the best candidate at the deadline wins. Returns null when nothing exists;
+ * throws LyricsNetworkError when no source could be reached at all.
  */
-export async function fetchLyrics(rawTitle: string, rawArtist: string, durationMs: number, album = ''): Promise<LyricsResult | null> {
+export function fetchLyrics(rawTitle: string, rawArtist: string, durationMs: number, album = '', opts: FetchOptions = {}): Promise<LyricsResult | null> {
   const variants = trackVariants(rawTitle, rawArtist)
-  let plainFallback: LyricsResult | null = null
+  const providers = (opts.impls ?? ALL_PROVIDERS).filter((p) => !opts.providers || opts.providers.includes(p.name))
+  const ctl = new AbortController()
+  const found: Scored[] = []
+  const pending = new Set(providers.map((p) => p.name))
   let networkFailures = 0
-  let attempts = 0
+  let done = false
+  let grace: NodeJS.Timeout | undefined
 
-  const consider = (recs: LrcLibRecord[], want: { title: string; artist: string }, source: string): LyricsResult | null => {
-    const ranked = recs
-      .filter((r) => (r.syncedLyrics || r.plainLyrics || r.instrumental) && fitsDuration(r, durationMs) && similarity(r.trackName, want.title) >= 0.55)
-      .map((r) => ({ r, s: score(r, want, durationMs) }))
-      .sort((x, y) => y.s - x.s)
-    for (const { r } of ranked) {
-      const res = toResult(r, durationMs, source)
-      if (!res) continue
-      if (res.synced || res.instrumental) return res
-      plainFallback ??= res
+  return new Promise((resolve, reject) => {
+    const finish = () => {
+      if (done) return
+      done = true
+      clearTimeout(deadline)
+      clearTimeout(grace)
+      ctl.abort(new Error('lyrics search finished'))
+      const ranked = found.sort((a, b) => b.score - a.score)
+      const best = ranked.find((s) => s.c.synced || s.c.instrumental) ?? ranked[0]
+      const result = best ? (toResult(best, durationMs) ?? ranked.map((s) => toResult(s, durationMs)).find(Boolean) ?? null) : null
+      if (!result && networkFailures === providers.length) reject(new LyricsNetworkError('no lyrics source reachable'))
+      else resolve(result)
     }
-    return null
-  }
+    const deadline = setTimeout(finish, opts.deadlineMs ?? 12000)
+    opts.onProgress?.([...pending])
 
-  const tryStep = async <T>(fn: () => Promise<T>): Promise<T | null> => {
-    attempts++
-    try {
-      return await fn()
-    } catch (e) {
-      if (e instanceof LyricsNetworkError) networkFailures++
-      return null
+    const emit = (c: Candidate) => {
+      if (done || !(c.synced || c.plain || c.instrumental) || !fitsDuration(c, durationMs)) return
+      const s = rate(c, variants, durationMs)
+      if (s.title < 0.55) return
+      found.push(s)
+      const strong = (c.synced || c.instrumental) && s.title >= 0.8 && s.artist >= 0.45
+      if (!strong) return
+      // Word-level timing is the best there is; otherwise give it a moment to show up
+      if (c.wordLevel) finish()
+      else grace ??= setTimeout(finish, 1200)
     }
-  }
 
-  for (const v of variants) {
-    if (v.artist) {
-      const q = new URLSearchParams({ track_name: v.title, artist_name: v.artist })
-      if (album) q.set('album_name', album)
-      if (durationMs > 0) q.set('duration', String(Math.round(durationMs / 1000)))
-      const exact = await tryStep(() => getJson<LrcLibRecord>(`${API}/get?${q}`))
-      const hit = exact && consider([exact], v, 'lrclib exact')
-      if (hit) return hit
+    if (!providers.length) return finish()
+    for (const p of providers) {
+      p.search({ variants, durationMs, album, signal: ctl.signal, emit })
+        .catch((e) => {
+          if (e instanceof ProviderNetworkError) networkFailures++
+          else if (!ctl.signal.aborted) console.warn(`[lyrics:${p.name}]`, e)
+        })
+        .finally(() => {
+          pending.delete(p.name)
+          if (done) return
+          opts.onProgress?.([...pending])
+          if (!pending.size) finish()
+        })
     }
-  }
-  const searches: [string, URLSearchParams, { title: string; artist: string }][] = []
-  for (const v of variants) {
-    if (v.artist) searches.push([`search title+artist`, new URLSearchParams({ track_name: v.title, artist_name: v.artist }), v])
-    searches.push([`search title`, new URLSearchParams({ track_name: v.title }), v])
-    searches.push([`search text`, new URLSearchParams({ q: `${v.title} ${v.artist}`.trim() }), v])
-  }
-  for (const [label, q, v] of searches.slice(0, 9)) {
-    const recs = await tryStep(() => getJson<LrcLibRecord[]>(`${API}/search?${q}`))
-    const hit = recs && consider(recs, v, `lrclib ${label}`)
-    if (hit) return hit
-  }
-  if (plainFallback) return plainFallback
-  if (attempts > 0 && networkFailures === attempts) throw new LyricsNetworkError('LRCLIB unreachable')
-  return null
+  })
 }
