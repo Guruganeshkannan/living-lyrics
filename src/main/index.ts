@@ -23,7 +23,7 @@ interface CachedSong {
   /** Bump to invalidate caches when parsing/analysis logic changes */
   v: number
 }
-const CACHE_VERSION = 2
+const CACHE_VERSION = 3
 const MISS_TTL_MS = 24 * 60 * 60 * 1000
 
 // Smoother compositing for the 3D text + WebGL stack

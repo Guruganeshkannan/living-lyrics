@@ -1,6 +1,8 @@
 # Living Lyrics
 
-A Windows desktop lyric visualizer in the spirit of the Cotodama Lyric Speaker. It shows the lyrics of whatever is playing on your PC (Spotify, YouTube in a browser, VLC and others), and the motion, color, typography and transitions follow the song's **mood** and **live audio**.
+A Windows lyric visualizer in the spirit of the Cotodama Lyric Speaker. It shows the lyrics of whatever is playing on your PC (Spotify, YouTube in a browser, VLC and more) and places each line in a 3D world that reacts to the song's mood, sections and live audio.
+
+It supports English and the major Indian languages (Tamil, Hindi, Urdu, Telugu, Kannada, Malayalam, Bengali, Marathi, Punjabi and Gujarati), in native script and in romanized spellings such as Tanglish and Hinglish.
 
 ## Run
 
@@ -11,35 +13,65 @@ npm start          # production build + run
 npm test           # unit tests
 ```
 
-Play a song in any app that shows up in the Windows media flyout. Lyrics are fetched from [LRCLIB](https://lrclib.net) and cached in `%APPDATA%/living-lyrics/cache`.
+Play a song in any app that shows up in the Windows media flyout. Lyrics come from [LRCLIB](https://lrclib.net) and are cached.
 
 ## Keys
 
 | Key | Action |
 |---|---|
-| `[` / `]` | Lyrics sync −/+ 100 ms (saved per song) |
-| `M` | Cycle mood manually (back to auto after the last one) |
+| `[` / `]` | Shift lyrics sync for this song by −/+100 ms (saved) |
+| `Shift` + `[` / `]` | Shift sync for all songs (covers output-device latency) |
+| `M` | Cycle mood manually, then back to auto |
+| `R` | Look up this song's lyrics again |
 | `F` / `Esc` | Toggle / exit fullscreen |
 | `P` | Mini always-on-top window |
-| `D` | Debug overlay (track, clock, section, mood, key, BPM, meters) |
+| `D` | Debug overlay: lyrics source, language, section, mood, camera, world, current motion choice, key, BPM, fps |
+| `Ctrl+Shift+D` | Demo harness: cycle the built-in sample songs in every language |
 
-## How the mood is decided (no AI)
+**Your own lyrics:** drop a `.lrc` or `.txt` file on the window to assign it to the current song. You can also put `Artist - Title.lrc` files in `Documents/LivingLyrics/lyrics/`. Your own files always beat LRCLIB.
 
-1. **Lyrics** (`src/main/lyricMood.ts`): an emotion lexicon (`src/main/data/emotionLexicon.json`) plus AFINN sentiment places each line, section and the whole song on a valence/arousal plane. Repeated lines become the chorus; unique late lines become the bridge.
-2. **Audio** (`src/renderer/mood/`): system-audio loopback gives the key (major/minor, Krumhansl profiles), tempo, energy and brightness. Sudden energy surges count as "the drop".
-3. **Blend** (`moodDirector.ts`): mood = 60% lyrics + 40% audio. The audio share ramps in as its estimates settle, and a spring smooths the mood so visuals morph instead of snapping.
+## How it works
 
-Nine themes (`src/renderer/themes/themes.ts`): romance, calm, nostalgic, playful, triumphant, hype, heartbreak, dark, revenge. Each defines fonts, palette, shader parameters, particle behavior, beat punch, shake, glitch and transition sets.
+- **Text:** lines are real DOM text, so Indian scripts and Urdu shape correctly.
+  - Each line is placed in 3D with `CSS3DRenderer` and shares one camera with the WebGL world.
+  - Words are split into aksharas, so conjuncts like क्ष or க்ஷ stay whole.
+  - Each akshara gets a liquid karaoke sweep timed to the singing; Urdu sweeps right to left.
+- **Camera:** each mood has its own path through space:
+  - drift (romance, calm)
+  - descend (heartbreak)
+  - rise (triumphant)
+  - jump (hype)
+  - punch (revenge)
+  - orbit (dark)
+  - zigzag (playful)
+  - pan (nostalgic)
+
+  Chorus starts get a pull-back then push-in. Fly-ins land on the beat.
+- **Worlds:** 8 shader scenes switch at section changes and are tinted by the song's key:
+  - nebula
+  - aurora
+  - warp tunnel
+  - mesh-gradient liquid
+  - rain on glass
+  - inferno
+  - synthwave
+  - crystal shards
+- **Choreography:** 26 modern entrances and 17 exits.
+  - Each line's move is scored against the song: mood blend, energy, tempo, the line's own emotion, how long it's sung, its length, its section and its words. For example, "break" shatters, tears fall and fire burns to ash.
+  - Particle disintegration is used as punctuation, at section ends and on keywords, not on every line.
+- **Mood (no AI):** emotion lexicons in `src/main/data/lexicon/*.json` are combined with live audio analysis (key mode, tempo, energy).
+  - Romanized word lists only switch on when that language is detected, so English songs aren't misread.
+- **Performance:** adaptive quality steps resolution, particles and shader detail up or down to stay smooth.
 
 ## Tuning
 
-- **Wrong mood for a song type?** Add or remove words in `emotionLexicon.json` (`word:2` = double weight).
-- **New look?** Add numbers to a theme; every scene parameter blends between moods automatically.
-- **New transition?** Add it to `IN_PRESETS` / `OUT_PRESETS` in `src/renderer/transitions/presets.ts` and list it in a theme.
+- **Mood words:** edit `src/main/data/lexicon/<lang>.json`. Each file has `moods`, `effects`, `negators` and `markers` (the common words used to detect romanized text). `word:2` gives a word double weight.
+- **A mood's look:** edit its entry in `src/renderer/themes/themes.ts` (palette, fonts, camera, worlds per section, exit style).
+- **New motion:** add a preset in `src/renderer/transitions/presets.ts` and give it a profile in `TransitionEngine.ts`.
 
 ## Troubleshooting
 
-- **No track detected:** the player must publish to Windows media controls (Spotify desktop, Chrome/Edge, and most players do). Check `D`.
-- **Lyrics early or late:** press `[` / `]`. Browsers sometimes report position less precisely than Spotify.
+- **No track detected:** the player must publish to Windows media controls. Check with `D`.
+- **No lyrics:** press `R`, or drop a `.lrc` file. The status line at the bottom says what happened.
 - **"Electron uninstall" error:** run `node node_modules/electron/install.js`.
-- **`app.whenReady` undefined:** the environment variable `ELECTRON_RUN_AS_NODE` is set (some IDE extension hosts do this). Unset it before running.
+- **`app.whenReady` undefined:** unset the `ELECTRON_RUN_AS_NODE` environment variable (some IDE hosts set it).
