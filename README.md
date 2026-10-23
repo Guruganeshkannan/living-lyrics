@@ -13,7 +13,30 @@ npm start          # production build + run
 npm test           # unit tests
 ```
 
-Play a song in any app that shows up in the Windows media flyout. Lyrics come from [LRCLIB](https://lrclib.net) and are cached.
+Play a song in any app that shows up in the Windows media flyout.
+
+### Lyric sources
+
+Lyrics are looked up in this order:
+
+1. **Your own files:** dropped `.lrc` files, or files in `Documents/LivingLyrics/lyrics/`.
+2. **The cache.**
+3. **All online sources at the same time.** The best match wins, and the search gives up after 12 s.
+
+| Source | Gives |
+|---|---|
+| [LRCLIB](https://lrclib.net) | Synced and plain lyrics (open, community-made) |
+| Musixmatch (unofficial desktop endpoint) | Word-by-word timing when available. It may throttle anonymous use, in which case the app pauses it for 10 minutes. |
+| NetEase Cloud Music (unofficial web API) | Synced lyrics |
+| lyrics.ovh | Plain lyrics, used as a last resort |
+
+To switch sources on or off, or change the timeout, edit `%APPDATA%/living-lyrics/settings.json`:
+
+```json
+{ "providers": ["lrclib", "musixmatch", "netease", "lyrics.ovh"], "searchTimeoutMs": 12000 }
+```
+
+Synced results are cached permanently. Misses and plain-only results are retried after a day.
 
 ## Keys
 
