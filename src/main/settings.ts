@@ -9,8 +9,10 @@ export interface Settings {
   searchTimeoutMs: number
 }
 
+// Musixmatch and NetEase go through unofficial endpoints, so they're opt-in:
+// add "musixmatch" and/or "netease" to `providers` in settings.json to use them.
 const DEFAULTS: Settings = {
-  providers: ['lrclib', 'musixmatch', 'netease', 'lyrics.ovh'],
+  providers: ['lrclib', 'lyrics.ovh'],
   searchTimeoutMs: 12000
 }
 

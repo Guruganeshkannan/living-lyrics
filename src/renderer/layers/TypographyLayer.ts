@@ -347,7 +347,7 @@ export class TypographyLayer {
       w.classList.remove('upcoming')
       w.classList.add('active')
       // The word being sung comes toward the camera
-      gsap.fromTo(w, { z: 0, scale: 1 }, { z: 70, scale: 1.1, duration: 0.28, ease: cur.theme.ease.pop, overwrite: 'auto' })
+      gsap.fromTo(w, { z: 0, scale: 1 }, { z: 36, scale: 1.05, duration: 0.28, ease: cur.theme.ease.pop, overwrite: 'auto' })
       cur.words[idx + 1]?.classList.add('next')
       const effect = cur.keywords.get(idx)
       if (effect) this.keywordEffect(cur, w, effect)

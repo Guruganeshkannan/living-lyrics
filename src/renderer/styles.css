@@ -50,6 +50,8 @@ body.idle {
   text-wrap: balance;
   transform-style: preserve-3d;
   padding: 0.25em 0.4em;
+  /* Keeps a visible gap even when the sung word scales up toward the camera */
+  word-spacing: 0.18em;
 }
 
 .line3d > .layer {

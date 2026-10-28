@@ -2,6 +2,28 @@
   "name": "living-lyrics",
   "version": "0.1.0",
   "description": "Mood-reactive, audio-reactive lyric visualizer for whatever is playing on your PC",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/Guruganeshkannan/living-lyrics#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guruganeshkannan/living-lyrics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Guruganeshkannan/living-lyrics/issues"
+  },
+  "keywords": [
+    "lyrics",
+    "lyrics-visualizer",
+    "karaoke",
+    "electron",
+    "threejs",
+    "webgl",
+    "music",
+    "indian-languages",
+    "tamil",
+    "hindi"
+  ],
   "main": "out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
@@ -112,9 +134,6 @@
       ],
       "legalTrademarks": "Living Lyrics by Guruganesh",
       "signtoolOptions": {
-        "publisherName": [
-          "Guruganesh"
-        ],
         "signingHashAlgorithms": [
           "sha256"
         ],
